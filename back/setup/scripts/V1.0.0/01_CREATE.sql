@@ -5,7 +5,8 @@ CREATE TABLE producto(
     precioVenta number,
     posicion CHAR(2),
     precio number,
-    
+    peso number,
+	
     CONSTRAINT Pk_producto PRIMARY KEY (id)
 
 );
