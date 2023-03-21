@@ -14,26 +14,31 @@ import lombok.ToString;
 
 @Entity
 @Data
-@ToString
-@Table(name="producto")
-@Getter
-@Setter
+@Table(name="PRODUCTO")
 public class ProductoEntity implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
+	
 	@Id
-	@Column(name="id")
-	Long Id;
-	@Column(name="nombre")
+	@Column(name="ID")
+	Long id;
+	
+	@Column(name="NOMBRE")
 	String nombre;
-	@Column(name="precioCompra")
+	
+	@Column(name="PRECIOCOMPRA")
 	Double precioCompra;
-	@Column(name="precioVenta")
+	
+	@Column(name="PRECIOVENTA")
 	Double precioVenta;
-	@Column(name="posicion")
-	String Posicion;
-	@Column(name="peso")
+	
+	@Column(name="POSICION")
+	String posicion;
+	
+	@Column(name="PESO")
 	Double peso;
-	@Column(name="cantidad")
+	
+	@Column(name="CANTIDAD")
 	Integer cantidad;
 	
 }
