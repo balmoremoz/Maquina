@@ -8,9 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Data
@@ -21,24 +18,27 @@ public class ProductoEntity implements Serializable{
 	
 	@Id
 	@Column(name="ID")
-	Long id;
+	  Long id;
 	
 	@Column(name="NOMBRE")
-	String nombre;
+	 String nombre;
 	
 	@Column(name="PRECIOCOMPRA")
-	Double precioCompra;
+	 Double precioCompra;
 	
 	@Column(name="PRECIOVENTA")
-	Double precioVenta;
+	 Double precioVenta;
 	
 	@Column(name="POSICION")
-	String posicion;
+	 String posicion;
 	
 	@Column(name="PESO")
-	Double peso;
+	 Double peso;
 	
 	@Column(name="CANTIDAD")
-	Integer cantidad;
+	 Integer cantidad;
+	
+	@Column(name="FOTO")
+	  String foto;
 	
 }

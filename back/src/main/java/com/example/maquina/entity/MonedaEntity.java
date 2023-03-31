@@ -8,20 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Data
-@Getter
-@Setter
-@Table(name="moneda")
+@Table(name="MONEDA")
 public class MonedaEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@Column(name="valor")
+	@Column(name="VALOR")
 	Double valor;
-	@Column(name="cantidad")
+	@Column(name="CANTIDAD")
 	Long cantidad;
+	@Column(name="FOTO")
+	String foto;
 	
 }

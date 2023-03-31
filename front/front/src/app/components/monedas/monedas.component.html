@@ -1,0 +1,9 @@
+<div id="monedas">
+    <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)"></div><br>
+
+    <div class="moneda" *ngFor="let moneda of monedas">
+        <div><img id="{{moneda.valor}}" class="foto" draggable="true" (dragstart)="drag($event)"
+                src="../../../assets/img/monedas/{{moneda.foto}}" /></div>
+    </div>
+    <button id="aceptar" type="button" (click)="addNewItem()">Aceptar</button>
+</div>

@@ -9,20 +9,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.maquina.dto.ProductoDto;
-import com.example.maquina.provider.impl.ProductoProviderImpl;
+import com.example.maquina.dto.MonedaDto;
+import com.example.maquina.provider.impl.MonedaProviderImp;
 
 @RestController
-@RequestMapping("/producto")
-public class ProductoController {
+@RequestMapping("/moneda")
+public class MonedaController {
 
 	@Autowired
-	ProductoProviderImpl productoProvider;
+	MonedaProviderImp monedaProvider;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<ProductoDto>>getAllProductos() {
-		List<ProductoDto> productos = productoProvider.findAllProductos();
-		return new ResponseEntity<>(productos,HttpStatus.OK);
+	public ResponseEntity<List<MonedaDto>>getAllMonedasDto(){
+		List<MonedaDto> monedas = monedaProvider.findAllMonedasDto();
+		return new ResponseEntity<>(monedas, HttpStatus.OK);
 	}
+
+	
 	
 }

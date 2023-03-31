@@ -1,0 +1,28 @@
+<div id="productos">
+  <div class="producto" *ngFor="let producto of productos">
+    <div class="contenedorFoto"><img draggable="false" class="foto" src="../assets/img/{{producto.foto}}"
+        title="{{producto.nombre}}" /></div>
+    <br><label>{{producto.precioVenta}}€ </label><br><label>Posicion:{{producto.posicion}}</label>
+  </div>
+</div>
+<div id="botonera">
+  <button type="button" id="uno">1</button>
+  <button type="button" id="dos">2</button>
+  <button type="button" id="tres">3</button>
+  <button type="button" id="cuatro">4</button>
+  <button type="button" id="cinco">5</button>
+  <button type="button" id="a">A</button>
+  <button type="button" id="b">B</button>
+  <button type="button" id="c">C</button>
+  <button type="button" id="d">D</button>
+  <button type="button" id="e">E</button>
+</div>
+<div>{{saldo | number}}
+</div>
+<button id="myBtn" type="button" onclick="mostrarModal()">Insertar monedas</button>
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <app-monedas (newItemEvent)="addItem($event)"></app-monedas>
+  </div>
+</div>

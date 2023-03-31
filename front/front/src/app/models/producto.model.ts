@@ -4,6 +4,7 @@ export interface ProductoEntity{
     precioCompra:number;
     precioVenta:number;
     posicion:string;
-    precio:number;
+    peso:number;
     cantidad:number;
+    foto:string;
 }

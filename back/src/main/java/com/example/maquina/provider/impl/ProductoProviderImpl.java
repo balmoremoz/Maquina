@@ -2,7 +2,6 @@ package com.example.maquina.provider.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,25 +16,20 @@ public class ProductoProviderImpl implements ProductoProvider {
 
 	@Autowired
 	ProductoRepository productoRepository;
-	
+
 	@Autowired
-	private ModelMapper modelMapper;
-	
+	 ModelMapper modelMapper;
+
 	@Override
 	public List<ProductoDto> findAllProductos() {
-		
-		List<ProductoEntity> p = productoRepository.findAll();
-		List<ProductoDto>productos =new ArrayList<ProductoDto>();
-		
-		for(ProductoEntity producto:p) {
+		List<ProductoEntity> productos = productoRepository.findAll();
+		List<ProductoDto> productosDto = new ArrayList<ProductoDto>();
+	
+		for (ProductoEntity producto : productos) {
 			
-			productos.add(modelMapper.map(producto, ProductoDto.class));
+			productosDto.add(modelMapper.map(producto,ProductoDto.class));
 		}
-		return productos;
+		return productosDto;
 	}
-	
-
-	
-
 
 }
