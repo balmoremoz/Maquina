@@ -1,9 +1,18 @@
-<div id="monedas">
-    <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)"></div><br>
+<div class="modal-content">
+    <span id="close">&times;</span>
+    <h2>INSERTE MODEDAS</h2>
+    <div id="monedas">
+        <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)">
+        </div>
+        <br>
 
-    <div class="moneda" *ngFor="let moneda of monedas">
-        <div><img id="{{moneda.valor}}" class="foto" draggable="true" (dragstart)="drag($event)"
-                src="../../../assets/img/monedas/{{moneda.foto}}" /></div>
+        <div class="moneda" *ngFor="let moneda of monedas">
+            <div><img id="{{moneda.valor}}" class="foto" draggable="true" (dragstart)="drag($event)"
+                    src="../../../assets/img/monedas/{{moneda.foto}}" /></div>
+        </div>
+        <button id="cambio" type="button" (click)="devolverDinero()">devolver dinero</button>
+
     </div>
-    <button id="aceptar" type="button" (click)="addNewItem()">Aceptar</button>
+    <div class="mostrarSaldoModal"><span>Saldo:</span>{{saldo | number}}</div>
+
 </div>

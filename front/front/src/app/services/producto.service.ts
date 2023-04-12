@@ -13,4 +13,7 @@ export class productoService {
   public getProductos():Observable<ProductoEntity[]>{
     return this.http.get<ProductoEntity[]>(`${this.apiServerUrl}/producto/all`)
   }
+  public getProductoById(productoId: number): Observable<ProductoEntity> {
+    return this.http.get<ProductoEntity>(`http://localhost:8080/maquina/producto/find/${productoId}`);
+  }
 }

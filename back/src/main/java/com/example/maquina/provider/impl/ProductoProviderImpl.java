@@ -2,6 +2,8 @@ package com.example.maquina.provider.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,5 +33,10 @@ public class ProductoProviderImpl implements ProductoProvider {
 		}
 		return productosDto;
 	}
+	
+    public ProductoEntity findProductoById(Long id) {
+        return productoRepository.findProductoById(id);
+    }
+
 
 }

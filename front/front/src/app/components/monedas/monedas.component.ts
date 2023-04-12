@@ -18,13 +18,13 @@ export class MonedasComponent {
 
   ngOnInit() {
     this.getMonedas();
+
   }
 
   public getMonedas(): void {
     console.log("this.getMonedas");
     this.monedaService.getMonedas().subscribe(
       (response) => {
-        console.log(response);
         this.monedas = response;
       },
       (error: HttpErrorResponse) => {
@@ -39,20 +39,23 @@ export class MonedasComponent {
 
   public drop(ev) {
     ev.preventDefault();
-
+    var imagen = document.createElement("img")
     var data = ev.dataTransfer.getData("text");
+    imagen.src = data;
+    imagen.draggable = false;
+    imagen.style.setProperty("object-fit", "scale-down");
+    imagen.style.setProperty("width", "40px");
 
-    var m_img = document.createElement("img");
-    m_img.draggable = false;
-    m_img.src = data;
-    m_img.style.setProperty("object-fit", "scale-down");
-    m_img.style.setProperty("width", "40px");
+
 
     if (ev.target.id == "div2") {
-      ev.target.appendChild(m_img);
-      this.saldo = this.saldo + this.valor;
+      ev.target.appendChild(imagen);
     }
+
+    this.saldo = this.saldo + this.valor;
     this.valor = 0;
+    this.newItemEvent.emit(this.saldo);
+
   }
   public drag(ev) {
     ev.dataTransfer.setData("text", ev.target.src);
@@ -61,6 +64,11 @@ export class MonedasComponent {
 
   addNewItem() {
     this.newItemEvent.emit(this.saldo);
+  }
+  public devolverDinero(){
+    this.saldo=0;
+    document.getElementById("div2").innerHTML ="";
+    this.addNewItem();
   }
 }
 

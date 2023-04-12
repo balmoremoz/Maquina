@@ -6,23 +6,28 @@
   </div>
 </div>
 <div id="botonera">
-  <button type="button" id="uno">1</button>
-  <button type="button" id="dos">2</button>
-  <button type="button" id="tres">3</button>
-  <button type="button" id="cuatro">4</button>
-  <button type="button" id="cinco">5</button>
-  <button type="button" id="a">A</button>
-  <button type="button" id="b">B</button>
-  <button type="button" id="c">C</button>
-  <button type="button" id="d">D</button>
-  <button type="button" id="e">E</button>
+  <button  (click)="escribir($event)" type="button"  id="uno" >1</button>
+  <button   (click)="escribir($event)"type="button" id="dos">2</button>
+  <button  (click)="escribir($event)"type="button" id="tres">3</button>
+  <button  (click)="escribir($event)"type="button" id="cuatro">4</button>
+  <button (click)="escribir($event)" type="button" id="cinco">5</button>
+  <button (click)="escribir($event)" type="button" id="a">A</button>
+  <button  (click)="escribir($event)"type="button" id="b">B</button>
+  <button  (click)="escribir($event)"type="button" id="c">C</button>
+  <button  (click)="escribir($event)"type="button" id="d">D</button>
+  <button (click)="escribir($event)" type="button" id="e">E</button>
+
 </div>
-<div>{{saldo | number}}
+
+<div id="botoneraFunciones">
+  <button id="myBtn" type="button" (click)="modal()">Insertar monedas</button>
+  <button  type="button" (click)="borrar()">Borrar</button>
+  <button  type="button">aceptar</button>
 </div>
-<button id="myBtn" type="button" onclick="mostrarModal()">Insertar monedas</button>
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <app-monedas (newItemEvent)="addItem($event)"></app-monedas>
-  </div>
+<div id="mostrarSaldo"><span>Saldo:</span>{{saldo | number}}</div>
+<div><span id="mostrarProducto">Producto:</span></div>
+
+
+<div id="myModal" class="modal" style="display: none;">
+  <app-monedas (newItemEvent)="addItem($event)"></app-monedas>
 </div>
