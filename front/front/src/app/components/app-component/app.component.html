@@ -3,31 +3,49 @@
     <div class="contenedorFoto"><img draggable="false" class="foto" src="../assets/img/{{producto.foto}}"
         title="{{producto.nombre}}" /></div>
     <br><label>{{producto.precioVenta}}€ </label><br><label>Posicion:{{producto.posicion}}</label>
+    <div id="mostrarCambio"><span>Cambio:</span></div>
+
   </div>
 </div>
 <div id="botonera">
-  <button  (click)="escribir($event)" type="button"  id="uno" >1</button>
-  <button   (click)="escribir($event)"type="button" id="dos">2</button>
-  <button  (click)="escribir($event)"type="button" id="tres">3</button>
-  <button  (click)="escribir($event)"type="button" id="cuatro">4</button>
+  <button (click)="escribir($event)" type="button" id="uno">1</button>
+  <button (click)="escribir($event)" type="button" id="dos">2</button>
+  <button (click)="escribir($event)" type="button" id="tres">3</button>
+  <button (click)="escribir($event)" type="button" id="cuatro">4</button>
   <button (click)="escribir($event)" type="button" id="cinco">5</button>
   <button (click)="escribir($event)" type="button" id="a">A</button>
-  <button  (click)="escribir($event)"type="button" id="b">B</button>
-  <button  (click)="escribir($event)"type="button" id="c">C</button>
-  <button  (click)="escribir($event)"type="button" id="d">D</button>
+  <button (click)="escribir($event)" type="button" id="b">B</button>
+  <button (click)="escribir($event)" type="button" id="c">C</button>
+  <button (click)="escribir($event)" type="button" id="d">D</button>
   <button (click)="escribir($event)" type="button" id="e">E</button>
 
 </div>
 
 <div id="botoneraFunciones">
   <button id="myBtn" type="button" (click)="modal()">Insertar monedas</button>
-  <button  type="button" (click)="borrar()">Borrar</button>
-  <button  type="button">aceptar</button>
+  <button type="button" (click)="compra()">Aceptar</button>
+  <button type="button" (click)="borrar()">Borrar</button>
 </div>
-<div id="mostrarSaldo"><span>Saldo:</span>{{saldo | number}}</div>
+<div id="mostrarSaldo"><span>Saldo:</span>{{saldo| number}}</div>
 <div><span id="mostrarProducto">Producto:</span></div>
 
+<div id="cambio" *ngFor="let moneda of cambios">
+
+  <div class="contenedorFotoCambio"><img draggable="false" class="foto" src="../assets/img/monedas/{{moneda.foto}}"
+      title="{{moneda.valor}}" /></div>
+</div>
+
+<div id="adminControl">
+  <button type="button">Inserción de productos</button>
+  <button type="button">Inserción de monedas</button>
+  <button type="button">Ver listado de productos-cantidad</button>
+  <button type="button">Ver listado de monedas-cantidad</button>
+  <button type="button">Ver listado de monedas-cantidad</button>
+  <button type="button">Ver ganancias</button>
+  
+</div>
 
 <div id="myModal" class="modal" style="display: none;">
-  <app-monedas (newItemEvent)="addItem($event)"></app-monedas>
-</div>
+  <app-monedas (newItemEvent)="addItem($event)" (monedasInsertadas)="addItem2($event)"
+    [reiniciarCompra]="reiniciarCompra"></app-monedas>
+</div>  

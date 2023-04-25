@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 public class MonedaDto {
 	Double valor;
-	Long cantidad;
+	Integer cantidad;
 	String foto;
 }

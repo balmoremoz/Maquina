@@ -7,5 +7,10 @@ import com.example.maquina.dto.MonedaDto;
 public interface MonedaProvider {
 
 	 List<MonedaDto>findAllMonedasDto();
-
+	 
+	 MonedaDto findMonedaByValor(Double id);
+	 
+//	 void compra(List<String> monedas, String productoPosicion);
+	 
+	 List<MonedaDto> getCambio(List<String> monedas, String productoPosicion);
 }

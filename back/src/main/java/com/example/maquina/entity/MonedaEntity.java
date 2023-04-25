@@ -18,7 +18,7 @@ public class MonedaEntity implements Serializable{
 	@Column(name="VALOR")
 	Double valor;
 	@Column(name="CANTIDAD")
-	Long cantidad;
+	Integer cantidad;
 	@Column(name="FOTO")
 	String foto;
 	

@@ -8,5 +8,6 @@ import com.example.maquina.entity.ProductoEntity;
 public interface ProductoProvider {
 	 List<ProductoDto>findAllProductos();
 	 
-	 ProductoEntity findProductoById(Long id);
+	 ProductoEntity findProductoByPosicion(String posicion);
+	 
 }

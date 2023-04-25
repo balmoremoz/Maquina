@@ -1,75 +1,63 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ProductoEntity } from '../../models/producto.model';
 import { productoService } from '../../services/producto.service';
-import { Observable, catchError } from 'rxjs';
+import { MonedaEntity } from 'src/app/models/moneda.model';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
-})
-export class AppComponent implements OnInit {
 
+})
+export class AppComponent implements OnInit{
+  title: "front";
   productos: ProductoEntity[];
   saldo: number;
-  title: "front";
-  pid: string;
-  http: HttpClient;
-  apiServerUrl = 'http://localhost:8080/maquina';
-  constructor(private productoService: productoService) {
-    this.pid = "";
-  }
+  productoId: string = "";
+  monedasInsertadas: MonedaEntity[] = [];
+  cambios: MonedaEntity[] = [];
+  cambio: number = 0;
+  reiniciarCompra: boolean = false;
+  productoSeleccionado:ProductoEntity[];
+  contrasena:string="D2315A";
+  admin: boolean;
+  
+  constructor(private productoService: productoService,) { }
 
   ngOnInit() {
     this.getProductos();
   }
 
   public getProductos(): void {
-    console.log("this.getProductos");
     this.productoService.getProductos().subscribe(
       (response) => {
-        // console.log(response);
         this.productos = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     )
+
   }
 
   addItem(newItem: Number) {
-    console.log(newItem);
     this.saldo = (newItem) as number;
   }
 
-
-  // addItem2(newItem:Array<String>){
-  //   console.log(newItem);
-  //   this.arrayImagenes=(newItem) as Array<String>;
-  // }
+  addItem2(newItem: MonedaEntity[]) {
+    this.monedasInsertadas = (newItem) as MonedaEntity[];
+  }
 
   public modal() {
-    // Get the modal
     var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
     var span = document.getElementById("close");
 
-    // When the user clicks the button, open the modal 
     modal.style.display = "block";
-    // btn.onclick = function () {
-    // }
-
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
       modal.style.setProperty("display", "none");
     }
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
@@ -78,46 +66,108 @@ export class AppComponent implements OnInit {
   }
 
   escribir(event) {
+    document.getElementById("cambio").style.setProperty("display", "none");
 
-    if (this.pid.length < 2) {
-      this.pid += event.target.innerHTML;
-      document.getElementById("mostrarProducto").innerHTML = this.pid;
+      this.productoId += event.target.innerHTML;
+      document.getElementById("mostrarProducto").innerHTML += this.productoId;
 
-      // if ((((this.pid.length >= 1) && (Number.isInteger(Number(this.pid.charAt(0))) == false))) && (((this.pid.length >= 1) &&
-      //   (Number.isInteger(Number(this.pid.charAt(1))) == true)))) {
+      if ((((this.productoId.length >= 1) && (Number.isInteger(Number(this.productoId.charAt(0))) == false))) && (((this.productoId.length >= 1) &&
+        (Number.isInteger(Number(this.productoId.charAt(1))) == true)))) {
 
-      //   document.getElementById("mostrarProducto").innerHTML = this.pid;
+        document.getElementById("mostrarProducto").innerHTML = this.productoId;
 
-      // } else {
-      //   this.pid = "";
-      //   document.getElementById("mostrarProducto").innerHTML = "";
-      // }
-      console.log(this.pid);
+      } else {
+        this.productoId = "";
+        document.getElementById("mostrarProducto").innerHTML = "";
+      }
 
-    }
+
   }
+
   borrar() {
-    document.getElementById("mostrarProducto").innerHTML = "";
-    this.pid = "";
+    document.getElementById("mostrarProducto").innerHTML = "Producto:";
+    this.productoId = "";
+    this.cambio = 0;
   }
 
-  buscarProducto(): Observable<ProductoEntity> {
-    var term = this.pid;
-    const options = term ?
-      { params: new HttpParams().set('find', term) } : {};
+  compra() {
+    if((this.productoId.length > 2) &&(this.productoId==this.contrasena)){
+      return this.isAdmin();
+    }
+    this.getProductos();
+    let listamonedasInsertadas = this.contarMonedas(this.monedasInsertadas);
+    var saldoMonedas = 0;
+    this.productoSeleccionado=this.productos.filter(producto=>producto.posicion==this.productoId);
 
-    return this.http.get<ProductoEntity>(`http://localhost:8080/maquina/producto`, options);
+    if ((this.monedasInsertadas.length == 0)&&(this.productoId.length==2)) {
+      alert("Error: inserte monedas");
+      return;
+    }
 
+    if (this.productoId == "") {
+      alert("Error: selecciona un producto");
+      return;
+    }
+
+    if (this.productoId.length <= 1) {
+      alert("Error : Posicion no válida")
+      return;
+    }
+    if (this.productoSeleccionado[0]?.cantidad == 0) {
+      alert("Error: no queda producto");
+      return;
+    }
+    this.monedasInsertadas.forEach(item => {
+      saldoMonedas += Number(item.valor);
+      saldoMonedas = Number(saldoMonedas.toFixed(2));
+    });
+
+    if (this.productoSeleccionado[0]?.precioVenta > saldoMonedas) {
+      alert("Error: faltan monedas");
+      return;
+    }
+    this.productoService.getMonedasyProducto(listamonedasInsertadas, this.productoId).subscribe(
+
+      (response) => {
+        this.cambios = response;
+        this.contarCambio(this.cambios);
+        this.reiniciarCompra = true;
+        alert("compra realizada");
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+    this.getProductos();
+    this.borrar();
+    document.getElementById("mostrarCambio").style.setProperty("display", "block");
+    this.reiniciarCompra = false;
+  }
+  isAdmin(){
+    document.getElementById("adminControl").style.setProperty("visibility", "visible");
+    if(this.productoId==this.contrasena){
+      this.admin = true;
+    }else{
+      this.admin = false;
+    }
+
+    this.borrar();
   }
 
-  // buscarProducto(term: string): Observable<ProductoEntity> {
-  //   var term=this.pid;
+  contarMonedas(listaMonedasInsertadas): String[] {
 
-  //   const options = term ?
-  //    { params: new HttpParams().set('find', term) } : {};
+    let valorMonedas: String[] = [];
 
-  //   return this.http.get<ProductoEntity>(`http://localhost:8080/maquina/producto/`, options)
+    listaMonedasInsertadas.forEach(item => {
+      valorMonedas.push(item.valor);
+    });
+    return valorMonedas;
+  }
 
-  // }
+  contarCambio(cambios: MonedaEntity[]) {
+    cambios.forEach(moneda => {
+      this.cambio = this.cambio + moneda.valor;
+    })
 
+  }
 }

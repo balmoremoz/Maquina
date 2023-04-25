@@ -2,8 +2,7 @@
     <span id="close">&times;</span>
     <h2>INSERTE MODEDAS</h2>
     <div id="monedas">
-        <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)">
-        </div>
+        <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
         <br>
 
         <div class="moneda" *ngFor="let moneda of monedas">
@@ -13,6 +12,7 @@
         <button id="cambio" type="button" (click)="devolverDinero()">devolver dinero</button>
 
     </div>
+
     <div class="mostrarSaldoModal"><span>Saldo:</span>{{saldo | number}}</div>
 
 </div>

@@ -27,9 +27,9 @@ public class ProductoController {
 		return new ResponseEntity<>(productos,HttpStatus.OK);
 	}
 	
-    @GetMapping("/find/{id}")
-    public ResponseEntity<ProductoEntity> getProductoById (@PathVariable("id") Long id) {
-        ProductoEntity producto = productoProvider.findProductoById(id);
+    @GetMapping("/find/{posicion}")
+    public ResponseEntity<ProductoEntity> getProductoByPosicion (@PathVariable("posicion") String posicion) {
+        ProductoEntity producto = productoProvider.findProductoByPosicion(posicion);
         return new ResponseEntity<>(producto, HttpStatus.OK);
     }
 	

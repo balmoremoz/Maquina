@@ -34,8 +34,8 @@ public class ProductoProviderImpl implements ProductoProvider {
 		return productosDto;
 	}
 	
-    public ProductoEntity findProductoById(Long id) {
-        return productoRepository.findProductoById(id);
+    public ProductoEntity findProductoByPosicion(String posicion) {
+        return productoRepository.findProductoByPosicion(posicion);
     }
 
 
