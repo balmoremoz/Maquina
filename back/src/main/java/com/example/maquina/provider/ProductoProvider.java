@@ -3,6 +3,7 @@ package com.example.maquina.provider;
 import java.util.List;
 
 import com.example.maquina.dto.ProductoDto;
+
 import com.example.maquina.entity.ProductoEntity;
 
 public interface ProductoProvider {
@@ -10,4 +11,7 @@ public interface ProductoProvider {
 	 
 	 ProductoEntity findProductoByPosicion(String posicion);
 	 
+	 void anadirProducto(String posicion, Integer cantidad);
+	 
+	 ProductoEntity findProductoById(Long id);
 }

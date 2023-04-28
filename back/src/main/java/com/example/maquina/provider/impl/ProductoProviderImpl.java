@@ -1,5 +1,4 @@
 package com.example.maquina.provider.impl;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +6,6 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.example.maquina.dto.ProductoDto;
 import com.example.maquina.entity.ProductoEntity;
 import com.example.maquina.provider.ProductoProvider;
@@ -37,6 +35,23 @@ public class ProductoProviderImpl implements ProductoProvider {
     public ProductoEntity findProductoByPosicion(String posicion) {
         return productoRepository.findProductoByPosicion(posicion);
     }
+    
+    public void anadirProducto(String posicion, Integer cantidad) {
+    	ProductoEntity producto=productoRepository.findProductoByPosicion(posicion);
+    	
+    	producto.setCantidad(producto.getCantidad()+cantidad);
+    	productoRepository.save(producto);
+    	
+    }
+
+	@Override
+	public ProductoEntity findProductoById(Long id) {
+		Optional<ProductoEntity> producto = productoRepository.findById(id);
+		if(producto.isPresent()) {
+			return producto.get();
+		}
+		return null;
+	}
 
 
 }

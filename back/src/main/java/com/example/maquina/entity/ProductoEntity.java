@@ -11,34 +11,32 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="PRODUCTO")
-public class ProductoEntity implements Serializable{
-	
+@Table(name = "PRODUCTO")
+public class ProductoEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@Column(name="ID")
-	  Long id;
-	
-	@Column(name="NOMBRE")
-	 String nombre;
-	
-	@Column(name="PRECIOCOMPRA")
-	 Double precioCompra;
-	
-	@Column(name="PRECIOVENTA")
-	 Double precioVenta;
-	
-	@Column(name="POSICION")
-	 String posicion;
-	
-	@Column(name="PESO")
-	 Double peso;
-	
-	@Column(name="CANTIDAD")
-	 Integer cantidad;
-	
-	@Column(name="FOTO")
-	  String foto;
-	
+	@Column(name = "ID")
+	Long id;
+
+	@Column(name = "NOMBRE")
+	String nombre;
+
+	@Column(name = "PRECIOCOMPRA")
+	Double precioCompra;
+
+	@Column(name = "PRECIOVENTA")
+	Double precioVenta;
+
+	@Column(name = "POSICION")
+	String posicion;
+
+	@Column(name = "PESO")
+	Double peso;
+
+	@Column(name = "CANTIDAD")
+	Integer cantidad;
+
+	@Column(name = "FOTO")
+	String foto;
 }

@@ -2,45 +2,56 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MonedaEntity } from '../../models/moneda.model';
 import { MonedaService } from '../../services/moneda.service';
-import { Input } from '@angular/core'; // First, import Input
+import { Input } from '@angular/core'; 
 @Component({
   selector: 'app-monedas',
   templateUrl: './monedas.component.html',
   styleUrls: ['./monedas.component.css']
 })
-export class MonedasComponent  {
+export class MonedasComponent {
 
-  public monedas: MonedaEntity[];
-  public valor;
+  public monedas: MonedaEntity[]=[];
+  public valor: number;
   public saldo: number = 0;
-  public arrayMonedasInsertadas: MonedaEntity[] = new Array();
+  public arrayMonedasInsertadas: MonedaEntity[] =[];
+  public listadoMonedas:MonedaEntity[];
   @Output() newItemEvent = new EventEmitter<Number>();
   @Output() monedasInsertadas = new EventEmitter<MonedaEntity[]>();
-  @Input() reiniciarCompra;
+  @Output() listarMonedas = new EventEmitter<MonedaEntity[]>();
+  @Input() reiniciarCompra: boolean;
+  @Input() reiniciarListado:boolean;
 
   constructor(private monedaService: MonedaService) { }
 
   ngOnInit() {
+    console.log(this.reiniciarListado);
     this.getMonedas();
+    this.addNewItem();
   }
 
-  ngOnChanges(changes:SimpleChanges){
-    console.log(changes);
-    if (changes.reiniciarCompra){
+  ngOnChanges(changes: SimpleChanges) {
+    
+    if (changes.reiniciarCompra) {
       this.devolverDinero();
     }
+    console.log(this.reiniciarListado);
+    if (changes.reiniciarListado){
+      this.getMonedas();
+    }
   }
- 
 
-  public getMonedas(): void {
-    console.log("this.getMonedas");
+
+  public getMonedas():void {
     this.monedaService.getMonedas().subscribe(
       (response) => {
         this.monedas = response;
+       this.listarMonedas.emit(this.monedas);
+
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
+      
     )
   }
 
@@ -86,6 +97,10 @@ export class MonedasComponent  {
 
   enviarMonedasInsertadas() {
     this.monedasInsertadas.emit(this.arrayMonedasInsertadas);
+  }
+
+  addNewItem() {
+    this.listarMonedas.emit(this.listadoMonedas);
   }
 
   devolverDinero() {

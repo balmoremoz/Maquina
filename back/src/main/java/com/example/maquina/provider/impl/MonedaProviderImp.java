@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.example.maquina.dto.MonedaDto;
@@ -79,6 +81,13 @@ public class MonedaProviderImp implements MonedaProvider {
 		productoRepository.save(producto);
 		monedaRepository.saveAll(monedasBD);
 		return monedasCambio;
+	}
+	
+	public void anadirMoneda(double valor, Integer cantidad) {
+		MonedaEntity moneda=monedaRepository.findMonedaByValor(valor);
+		
+		moneda.setCantidad(moneda.getCantidad()+cantidad);
+		monedaRepository.save(moneda);
 	}
 
 }

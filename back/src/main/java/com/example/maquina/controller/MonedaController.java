@@ -19,32 +19,35 @@ import com.example.maquina.provider.impl.MonedaProviderImp;
 public class MonedaController {
 
 	@Autowired
-	
+
 	MonedaProviderImp monedaProvider;
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<MonedaDto>>getAllMonedasDto(){
+	public ResponseEntity<List<MonedaDto>> getAllMonedasDto() {
 		List<MonedaDto> monedas = monedaProvider.findAllMonedasDto();
 		return new ResponseEntity<>(monedas, HttpStatus.OK);
 	}
-	
-    @GetMapping("/find/{valor}")
-    public ResponseEntity<MonedaDto> getMonedaByValor (@PathVariable("valor") Double valor) {
-        MonedaDto moneda = monedaProvider.findMonedaByValor(valor);
-        return new ResponseEntity<>(moneda, HttpStatus.OK);
-    }
-    
-    @GetMapping("/compra")
-    @ResponseBody
-    public ResponseEntity<List<MonedaDto>> getCompra(@RequestParam("monedas") List<String> monedas ,@RequestParam String productoPosicion) { 
-        
-    	List<MonedaDto>cambio=monedaProvider.getCambio(monedas, productoPosicion);
-    	
-    	return new ResponseEntity<>(cambio, HttpStatus.OK);
-    }
 
-    
-	
-    
-	
+	@GetMapping("/find/{valor}")
+	public ResponseEntity<MonedaDto> getMonedaByValor(@PathVariable("valor") Double valor) {
+		MonedaDto moneda = monedaProvider.findMonedaByValor(valor);
+		return new ResponseEntity<>(moneda, HttpStatus.OK);
+	}
+
+	@GetMapping("/compra")
+	@ResponseBody
+	public ResponseEntity<List<MonedaDto>> getCompra(@RequestParam("monedas") List<String> monedas,
+			@RequestParam String productoPosicion) {
+
+		List<MonedaDto> cambio = monedaProvider.getCambio(monedas, productoPosicion);
+
+		return new ResponseEntity<>(cambio, HttpStatus.OK);
+	}
+
+	@GetMapping("/anadir")
+	@ResponseBody
+	public void anadirMoneda(@RequestParam Double valor, @RequestParam Integer cantidad) {
+		monedaProvider.anadirMoneda(valor, cantidad);
+	}
+
 }
