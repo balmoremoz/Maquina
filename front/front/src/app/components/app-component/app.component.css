@@ -32,14 +32,15 @@
   border-radius: 0;
   height: 200px;
 }
- #botoneraFunciones{
+
+#botoneraFunciones {
   width: 50%;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-auto-rows: minmax(20px, auto);
   border-radius: 0;
   height: 40px;
-} 
+}
 
 #uno {
   grid-column: 1 / 1;
@@ -91,23 +92,24 @@
   grid-column: 5 / 5;
   grid-row: 2/3;
 }
-#mostrarSaldo{
+
+#mostrarSaldo {
   width: auto;
   height: auto;
 }
 
 .modal {
   display: none;
-  position: fixed; 
-  z-index: 1; 
+  position: fixed;
+  z-index: 1;
   padding-top: 100px;
   left: 0;
   top: 0;
   width: 100%;
-  height:100%;
+  height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4); 
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -118,7 +120,8 @@
   width: 80%;
   height: 50%;
 }
-.modal-content h2{
+
+.modal-content h2 {
   text-align: center;
 }
 
@@ -128,12 +131,13 @@
   font-size: 28px;
   font-weight: bold;
 }
-#myBtn{
+
+#myBtn {
   grid-column: 1/6;
   grid-row: 1/2;
 }
 
-#cambio{
+#cambio {
   grid-column: 1/6;
   grid-row: 2/2;
 }
@@ -142,19 +146,20 @@
 #close:focus {
   color: #000;
   text-decoration: none;
-  cursor: pointer;}
+  cursor: pointer;
+}
 
-.mostrarSaldoModal{
+.mostrarSaldoModal {
   text-align: center;
   font-family: arial;
   font-size: 14px;
 }
 
-#mostrarCambio{
+#mostrarCambio {
   display: none;
 }
 
-#cambio{
+#cambio {
   float: left;
   margin: 10px;
   width: 40px;
@@ -166,24 +171,29 @@
   height: 70%;
 }
 
-.contenedorFotoCambio img{
+.contenedorFotoCambio img {
   width: 100%;
   height: 100%;
 }
 
-#adminControl{
+#adminControl {
   visibility: hidden;
   display: grid;
 }
 
-#listaProductos{
+#listaProductos {
   display: none;
 }
 
-#inputs *{
+#inputs {
+  display: none;
+}
+
+#inputs * {
   width: 100%;
 }
-#inputPosicion{
+
+/* #inputPosicion{
   visibility: hidden;
 }
 #inputValor{
@@ -191,8 +201,8 @@
 }
 #inputCantidad{
   visibility: hidden;
-}
+} */
 
-#listaMonedas{
-  display:none;
+#listaMonedas {
+  display: none;
 }

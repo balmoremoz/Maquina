@@ -50,3 +50,6 @@ update MONEDA set FOTO='02e.png' where VALOR=0.2;
 update MONEDA set FOTO='05e.png' where VALOR=0.5;
 update MONEDA set FOTO='1e.png' where VALOR=1;
 update MONEDA set FOTO='2e.png' where VALOR=2;
+
+ ALTER TABLE VENTAS
+  MODIFY FECHA DATE not null;

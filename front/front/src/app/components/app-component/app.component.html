@@ -40,46 +40,56 @@
   <button type="button" (click)="insertarMonedas()">Inserción de monedas</button>
 
   <button type="button" (click)="listarProductos()">Ver listado de productos-cantidad</button>
-  <table id="listaProductos">
-    <tr>
-      <th>nombre</th>
-      <th>cantidad</th>
-    </tr>
-    <tr *ngFor="let producto of productos">
-      <td>{{producto.nombre}}</td>
-      <td>{{producto.cantidad}}</td>
-    </tr>
-  </table>
+  <div id="listaProductos">
+    <table>
+      <tr>
+        <th>nombre</th>
+        <th>cantidad</th>
+      </tr>
+      <tr *ngFor="let producto of productos">
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.cantidad}}</td>
+      </tr>
+    </table>
+  </div>
   <button type="button" (click)="listarMonedas()">Ver listado de monedas-cantidad</button>
-  <table id="listaMonedas">
-    <tr>
-      <th>Valor</th>
-      <th>Cantidad</th>
-    </tr>
-    <tr *ngFor="let moneda of listaMonedas">
-      <td>{{moneda.valor}}</td>
-      <td>{{moneda.cantidad}}</td>
-    </tr>
-  </table>
+  <div id="listaMonedas">
+    <table>
+      <tr>
+        <th>Valor</th>
+        <th>Cantidad</th>
+      </tr>
+      <tr *ngFor="let moneda of listaMonedas">
+        <td>{{moneda.valor}}</td>
+        <td>{{moneda.cantidad}}</td>
+      </tr>
+    </table>
+  </div>
   <button id="btnGanancias" type="button" (click)="getGanancias(this.ventas)">Ver ganancias</button>
-  <div id="divGanancias">{{this.ganancias|number}}</div>
+  <div id="divGanancias" *ngIf="mostrar==true">
+    {{this.ganancias|number}}€
+  </div>
 
   <div id="inputs">
-  
-    <label>cantidad</label>
-    <input [(ngModel)]="cantidadInsertar" id="inputCantidad" type="number"/>
+
+    <label>Cantidad</label>
+    <input [(ngModel)]="cantidadInsertar" id="inputCantidad" type="number" />
 
     <label>Posicion/Valor</label>
-    <input [(ngModel)]="posicionAgregar" id="inputPosicion" type="text"/>
+    <select id="inputPosicion" [(ngModel)]="posicionAgregar">
+      <option selected>selecciona un producto</option>
+      <option *ngFor="let producto of productos">{{producto.posicion}}</option>
+    </select>
 
-    <input [(ngModel)]="valorAgregar" id="inputValor" type="number"/>
-
+    <select id="inputValor" [(ngModel)]="valorAgregar">
+      <option selected>selecciona una moneda</option>
+      <option *ngFor="let moneda of listaMonedas">{{moneda.valor}}</option>
+    </select>
     <button id="confirmar" type="button" (click)="confirmarInsertar()">Confirmar</button>
-
   </div>
 </div>
 <div id="myModal" class="modal" style="display: none;">
   <app-monedas (newItemEvent)="addItem($event)" (monedasInsertadas)="addItem2($event)"
     (listarMonedas)="addItem3($event)" [reiniciarCompra]="reiniciarCompra"
-    [reiniciarListado]="refrescarListado"></app-monedas>
+    [reiniciarListado]="reiniciarListado"></app-monedas>
 </div>

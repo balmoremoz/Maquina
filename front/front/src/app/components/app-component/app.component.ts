@@ -27,9 +27,10 @@ export class AppComponent implements OnInit {
   posicionAgregar: string = "";
   valorAgregar: number = 0;
   listaMonedas: MonedaEntity[];
-  refrescarListado: boolean = false;
+  reiniciarListado: boolean = false;
   ventas: VentaEntity[] = [];
   ganancias: number;
+  mostrar: boolean = false;
 
   constructor(private productoService: productoService, private ventaService: VentaService) {
 
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
     this.getVentas();
   }
 
-  public getProductos(): void {
+  getProductos(): void {
     this.productoService.getProductos().subscribe(
       (response) => {
         this.productos = response;
@@ -48,7 +49,6 @@ export class AppComponent implements OnInit {
       (error: HttpErrorResponse) => {
         alert(error.message);
       });
-
   }
 
   public anadirVenta(idProducto: number, dinero: number): void {
@@ -163,12 +163,11 @@ export class AppComponent implements OnInit {
     this.productoService.getMonedasyProducto(listamonedasInsertadas, this.productoId).subscribe(
 
       (response) => {
-        console.log(this.productoId);
         this.cambios = response;
         this.contarCambio(this.cambios);
         this.reiniciarCompra = true;
         alert("compra realizada");
-        this.refrescarListado = true;
+        this.reiniciarListado = true;
         this.anadirVenta(this.productoSeleccionado[0].id, this.productoSeleccionado[0].precioVenta);
         this.getVentas();
       },
@@ -180,7 +179,7 @@ export class AppComponent implements OnInit {
     this.borrar();
     document.getElementById("mostrarCambio").style.setProperty("display", "block");
     this.reiniciarCompra = false;
-    this.refrescarListado = false;
+    this.reiniciarListado = false;
   }
   isAdmin() {
     if (this.productoId == "D2315A") {
@@ -188,7 +187,6 @@ export class AppComponent implements OnInit {
     } else {
       return;
     }
-
     this.borrar();
   }
 
@@ -208,18 +206,18 @@ export class AppComponent implements OnInit {
     })
   }
 
-  insertarProductos(){
-    document.getElementById("inputPosicion").style.setProperty("visibility","visible");
-    document.getElementById("inputPosicion").style.setProperty("display","block");
-    document.getElementById("inputCantidad").style.setProperty("visibility","visible");
-    document.getElementById("inputValor").style.setProperty("display","none");
+  insertarProductos() {
+    document.getElementById("inputs").style.setProperty("display", "block");
+    document.getElementById("inputPosicion").style.setProperty("display", "block");
+    document.getElementById("inputCantidad").style.setProperty("visibility", "visible");
+    document.getElementById("inputValor").style.setProperty("display", "none");
   }
 
   insertarMonedas() {
-    document.getElementById("inputValor").style.setProperty("visibility","visible");
-    document.getElementById("inputValor").style.setProperty("display","block");
-    document.getElementById("inputCantidad").style.setProperty("visibility","visible");
-    document.getElementById("inputPosicion").style.setProperty("display","none");
+    document.getElementById("inputs").style.setProperty("display", "block");
+    document.getElementById("inputValor").style.setProperty("display", "block");
+    document.getElementById("inputCantidad").style.setProperty("visibility", "visible");
+    document.getElementById("inputPosicion").style.setProperty("display", "none");
 
   }
 
@@ -231,8 +229,7 @@ export class AppComponent implements OnInit {
     document.getElementById("listaMonedas").style.setProperty("display", "block");
   }
 
-  getGanancias(ventas: VentaEntity[]): void {
-
+  getGanancias(ventas: VentaEntity[]) {
     this.getVentas();
     let dineroVenta: number = 0;
     let dineroCompra: number = 0;
@@ -242,10 +239,20 @@ export class AppComponent implements OnInit {
       dineroCompra += venta.producto.precioCompra;
     });
     this.ganancias = dineroVenta - dineroCompra;
+    this.mostrar = true;
   }
 
   confirmarInsertar() {
+    if (this.cantidadInsertar <= 0) {
+      alert("Error: Introduce un valor mayor que 0");
+      return;
+    }
+    if ((this.posicionAgregar == "") && (this.valorAgregar == 0)) {
+      alert("Error: Selecciona posicion/valor");
+      return;
+    }
     if (this.posicionAgregar != "") {
+
       this.productoService.anadirProducto(this.posicionAgregar, this.cantidadInsertar).subscribe(response => {
         alert("Producto añadido");
         this.getProductos();
@@ -259,13 +266,13 @@ export class AppComponent implements OnInit {
     if (this.valorAgregar != 0) {
       this.productoService.anadirMoneda(this.valorAgregar, this.cantidadInsertar).subscribe(response => {
         alert("Moneda anadida");
-        this.refrescarListado = true;
+        this.reiniciarListado = true;
       },
         (error: HttpErrorResponse) => {
           alert(error.message);
         })
       this.valorAgregar = 0;
-      this.refrescarListado = false;
+      this.reiniciarListado = false;
     }
   }
 }

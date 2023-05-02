@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MonedaEntity } from '../../models/moneda.model';
 import { MonedaService } from '../../services/moneda.service';
-import { Input } from '@angular/core'; 
+import { Input } from '@angular/core';
 @Component({
   selector: 'app-monedas',
   templateUrl: './monedas.component.html',
@@ -10,48 +10,46 @@ import { Input } from '@angular/core';
 })
 export class MonedasComponent {
 
-  public monedas: MonedaEntity[]=[];
+  public monedas: MonedaEntity[] = [];
   public valor: number;
   public saldo: number = 0;
-  public arrayMonedasInsertadas: MonedaEntity[] =[];
-  public listadoMonedas:MonedaEntity[];
+  public arrayMonedasInsertadas: MonedaEntity[] = [];
+  public listadoMonedas: MonedaEntity[];
   @Output() newItemEvent = new EventEmitter<Number>();
   @Output() monedasInsertadas = new EventEmitter<MonedaEntity[]>();
   @Output() listarMonedas = new EventEmitter<MonedaEntity[]>();
   @Input() reiniciarCompra: boolean;
-  @Input() reiniciarListado:boolean;
+  @Input() reiniciarListado: boolean;
 
   constructor(private monedaService: MonedaService) { }
 
   ngOnInit() {
-    console.log(this.reiniciarListado);
     this.getMonedas();
     this.addNewItem();
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    
+
     if (changes.reiniciarCompra) {
       this.devolverDinero();
     }
-    console.log(this.reiniciarListado);
-    if (changes.reiniciarListado){
+    if (changes.reiniciarListado) {
       this.getMonedas();
     }
   }
 
 
-  public getMonedas():void {
+  public getMonedas(): void {
     this.monedaService.getMonedas().subscribe(
       (response) => {
         this.monedas = response;
-       this.listarMonedas.emit(this.monedas);
+        this.listarMonedas.emit(this.monedas);
 
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
-      
+
     )
   }
 

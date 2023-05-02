@@ -35,7 +35,6 @@ export class productoService {
 
     httpParams = httpParams.set('posicion', posicion);
     httpParams = httpParams.set('cantidad', cantidad);
-    console.log(httpParams);
 
     return this.http.get<string>(`${this.apiServerUrl}/producto/anadir`, {
       observe: 'body',
@@ -48,7 +47,6 @@ export class productoService {
 
     httpParams = httpParams.set('valor', valor);
     httpParams = httpParams.set('cantidad', cantidad);
-    console.log(httpParams);
 
     return this.http.get<string>(`${this.apiServerUrl}/moneda/anadir`, {
       observe: 'body',
