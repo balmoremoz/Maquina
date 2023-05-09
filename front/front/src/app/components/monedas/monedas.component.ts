@@ -8,7 +8,7 @@ import { Input } from '@angular/core';
   templateUrl: './monedas.component.html',
   styleUrls: ['./monedas.component.css']
 })
-export class MonedasComponent {
+export class MonedasComponent implements OnChanges {
 
   public monedas: MonedaEntity[] = [];
   public valor: number;
@@ -39,7 +39,7 @@ export class MonedasComponent {
   }
 
 
-  public getMonedas(): void {
+  getMonedas(): void {
     this.monedaService.getMonedas().subscribe(
       (response) => {
         this.monedas = response;
@@ -53,11 +53,11 @@ export class MonedasComponent {
     )
   }
 
-  public allowDrop(ev) {
+  allowDrop(ev):void {
     ev.preventDefault();
   }
 
-  public drop(ev) {
+  drop(ev):void {
     var n = 0;
     ev.preventDefault();
     var imagen = document.createElement("img")
@@ -67,7 +67,7 @@ export class MonedasComponent {
     imagen.style.setProperty("object-fit", "scale-down");
     imagen.style.setProperty("width", "40px");
 
-    if (ev.target.id == "div2") {
+    if (ev.target.id == "divInsertarMonedas") {
       ev.target.appendChild(imagen);
     }
     while (n < this.monedas.length) {
@@ -84,26 +84,26 @@ export class MonedasComponent {
     this.monedasInsertadas.emit(this.arrayMonedasInsertadas);
   }
 
-  public drag(ev) {
+  drag(ev):void {
     ev.dataTransfer.setData("text", ev.target.src);
     this.valor = Number(ev.target.id);
   }
 
-  enviarSaldo() {
+  enviarSaldo():void {
     this.newItemEvent.emit(this.saldo);
   }
 
-  enviarMonedasInsertadas() {
+  enviarMonedasInsertadas():void {
     this.monedasInsertadas.emit(this.arrayMonedasInsertadas);
   }
 
-  addNewItem() {
+  addNewItem():void {
     this.listarMonedas.emit(this.listadoMonedas);
   }
 
-  devolverDinero() {
+  devolverDinero():void {
     this.saldo = 0;
-    document.getElementById("div2").innerHTML = "";
+    document.getElementById("divInsertarMonedas").innerHTML = "";
     this.arrayMonedasInsertadas = [];
     this.enviarSaldo();
     this.enviarMonedasInsertadas();

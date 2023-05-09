@@ -1,21 +1,23 @@
 #productos {
-  width: 50%;
+  margin: auto;
+  width: 75%;
+  height: 600px;
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  grid-template-rows: repeat(5, 20%);
 }
 
 .producto {
-  float: left;
-  width: 19%;
-  height: 180px;
-  border-style: solid;
-  border-width: 1px;
-  text-align: center;
+  padding: 10%;
   font-size: 12px;
+  /* border-style: solid; */
+  margin: 1%;
 }
 
 .contenedorFoto {
-  width: 100%;
-  height: 70%;
-
+  margin: auto;
+  width: 80%;
+  height: 80%;
 }
 
 .foto {
@@ -24,78 +26,48 @@
   height: 100%;
 }
 
+#info {
+  width: 100%;
+  text-align: center;
+}
+
+#info label {
+  float: left;
+  width: 100%;
+}
+
 #botonera {
+  margin: auto;
   width: 50%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: minmax(100px, auto);
-  border-radius: 0;
+  grid-auto-rows: repeat(2, 1fr);
   height: 200px;
+  margin-top: 5%;
+}
+
+.boton {
+  margin: 1%;
 }
 
 #botoneraFunciones {
-  width: 50%;
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-auto-rows: minmax(20px, auto);
-  border-radius: 0;
-  height: 40px;
+  margin-left: 25%;
+  width: 50%;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-#uno {
-  grid-column: 1 / 1;
-  grid-row: 1/2;
-
+#borrarBtn {
+  grid-column: 3;
 }
 
-#dos {
-  grid-column: 2 / 2;
-  grid-row: 1/2;
+#aceptarBtn {
+  grid-column: 2;
 }
 
-#tres {
-  grid-column: 3 / 3;
-  grid-row: 1/2;
-}
-
-#cuatro {
-  grid-column: 4 / 4;
-  grid-row: 1/2;
-}
-
-#cinco {
-  grid-column: 5 / 5;
-  grid-row: 1/2;
-}
-
-#a {
-  grid-column: 1 / 1;
-  grid-row: 2/3;
-}
-
-#b {
-  grid-column: 2 / 2;
-  grid-row: 2/3;
-}
-
-#c {
-  grid-column: 3 / 3;
-  grid-row: 2/3;
-}
-
-#d {
-  grid-column: 4 / 4;
-  grid-row: 2/3;
-}
-
-#e {
-  grid-column: 5 / 5;
-  grid-row: 2/3;
-}
-
-#mostrarSaldo {
-  width: auto;
-  height: auto;
+#mostrarSaldo,
+#mostrarProducto {
+  margin-left: 25%;
 }
 
 .modal {
@@ -132,14 +104,8 @@
   font-weight: bold;
 }
 
-#myBtn {
-  grid-column: 1/6;
-  grid-row: 1/2;
-}
-
-#cambio {
-  grid-column: 1/6;
-  grid-row: 2/2;
+#botonModal {
+  grid-column: 1;
 }
 
 #close:hover,
@@ -159,11 +125,16 @@
   display: none;
 }
 
-#cambio {
-  float: left;
-  margin: 10px;
-  width: 40px;
-  margin-right: 10px;
+#cambios {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  margin: 5%;
+  width: 100%;
+}
+
+.cambio {
+  grid-column: auto;
+  width: 100%;
 }
 
 .contenedorFotoCambio {
@@ -177,31 +148,59 @@
 }
 
 #adminControl {
-  visibility: hidden;
   display: grid;
+  margin-top: 1%;
+  width: 50%;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 25%;
+}
+
+#adminBotones {
+  grid-column: 1;
+  width: 100%;
+  visibility: hidden;
+}
+
+#adminBotones button {
+  margin-top: 0.5%;
 }
 
 #listaProductos {
+  grid-column: 2;
   display: none;
+}
+
+#listaMonedas {
+  grid-column: 2;
+  text-align: center;
+}
+
+#divGanancias {
+  grid-column: 2;
+}
+
+#adminBotones button {
+  width: 80%;
 }
 
 #inputs {
+  grid-column: 2;
+  width: 100%;
   display: none;
+  object-fit: scale-down;
 }
 
-#inputs * {
+#inputCantidad {
+  width: 95%;
+}
+
+#inputPosicion {
   width: 100%;
 }
 
-/* #inputPosicion{
-  visibility: hidden;
+#inputValor {
+  width: 100%;
 }
-#inputValor{
-  visibility: hidden;
-}
-#inputCantidad{
-  visibility: hidden;
-} */
 
 #listaMonedas {
   display: none;

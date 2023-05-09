@@ -1,94 +1,144 @@
 <div id="productos">
+
   <div class="producto" *ngFor="let producto of productos">
     <div class="contenedorFoto"><img draggable="false" class="foto" src="../assets/img/{{producto.foto}}"
-        title="{{producto.nombre}}" /></div>
-    <br><label>{{producto.precioVenta}}€ </label><br><label>Posicion:{{producto.posicion}}</label>
-    <div id="mostrarCambio"><span>Cambio:</span></div>
-
+        title="{{producto.nombre}}" />
+    </div>
+    <div id="info">
+      <label>{{producto.precioVenta}}€ </label>
+      <label>Posicion:{{producto.posicion}}</label>
+      <label>{{producto.nombre}}</label>
+    </div>
   </div>
 </div>
+
+<div id="mostrarCambio"><span>Cambio:</span></div>
+
 <div id="botonera">
-  <button (click)="escribir($event)" type="button" id="uno">1</button>
-  <button (click)="escribir($event)" type="button" id="dos">2</button>
-  <button (click)="escribir($event)" type="button" id="tres">3</button>
-  <button (click)="escribir($event)" type="button" id="cuatro">4</button>
-  <button (click)="escribir($event)" type="button" id="cinco">5</button>
-  <button (click)="escribir($event)" type="button" id="a">A</button>
-  <button (click)="escribir($event)" type="button" id="b">B</button>
-  <button (click)="escribir($event)" type="button" id="c">C</button>
-  <button (click)="escribir($event)" type="button" id="d">D</button>
-  <button (click)="escribir($event)" type="button" id="e">E</button>
+
+  <button class="boton" (click)="escribir($event)" type="button">1</button>
+  <button class="boton" (click)="escribir($event)" type="button">2</button>
+  <button class="boton" (click)="escribir($event)" type="button">3</button>
+  <button class="boton" (click)="escribir($event)" type="button">4</button>
+  <button class="boton" (click)="escribir($event)" type="button">5</button>
+  <button class="boton" (click)="escribir($event)" type="button">A</button>
+  <button class="boton" (click)="escribir($event)" type="button">B</button>
+  <button class="boton" (click)="escribir($event)" type="button">C</button>
+  <button class="boton" (click)="escribir($event)" type="button">D</button>
+  <button class="boton" (click)="escribir($event)" type="button">E</button>
 
 </div>
 
 <div id="botoneraFunciones">
-  <button id="myBtn" type="button" (click)="modal()">Insertar monedas</button>
-  <button type="button" (click)="compra()">Aceptar</button>
-  <button type="button" (click)="borrar()">Borrar</button>
-</div>
-<div id="mostrarSaldo"><span>Saldo:</span>{{saldo| number}}</div>
-<div><span id="mostrarProducto">Producto:{{productoId}}</span></div>
 
-<div id="cambio" *ngFor="let moneda of cambios">
-  <div class="contenedorFotoCambio"><img draggable="false" class="foto" src="../assets/img/monedas/{{moneda.foto}}"
-      title="{{moneda.valor}}" /></div>
+  <button id="botonModal" type="button" (click)="modal()">Insertar monedas</button>
+  <button id="aceptarBtn" type="button" (click)="compra()">Aceptar</button>
+  <button id="borrarBtn" type="button" (click)="borrar()">Borrar</button>
+
 </div>
+
+<div id="mostrarSaldo"><span>Saldo:</span>{{saldo| number}}</div>
+<div id="mostrarProducto"><span>Producto:{{productoId}}</span></div>
 
 <div id="adminControl">
-  <button type="button" (click)="insertarProductos()">Inserción de productos</button>
 
-  <button type="button" (click)="insertarMonedas()">Inserción de monedas</button>
+  <div id="adminBotones">
 
-  <button type="button" (click)="listarProductos()">Ver listado de productos-cantidad</button>
-  <div id="listaProductos">
-    <table>
-      <tr>
-        <th>nombre</th>
-        <th>cantidad</th>
-      </tr>
-      <tr *ngFor="let producto of productos">
-        <td>{{producto.nombre}}</td>
-        <td>{{producto.cantidad}}</td>
-      </tr>
-    </table>
-  </div>
-  <button type="button" (click)="listarMonedas()">Ver listado de monedas-cantidad</button>
-  <div id="listaMonedas">
-    <table>
-      <tr>
-        <th>Valor</th>
-        <th>Cantidad</th>
-      </tr>
-      <tr *ngFor="let moneda of listaMonedas">
-        <td>{{moneda.valor}}</td>
-        <td>{{moneda.cantidad}}</td>
-      </tr>
-    </table>
-  </div>
-  <button id="btnGanancias" type="button" (click)="getGanancias(this.ventas)">Ver ganancias</button>
-  <div id="divGanancias" *ngIf="mostrar==true">
-    {{this.ganancias|number}}€
+    <button type="button" (click)="insertarProductos()">Inserción de productos</button>
+    <button type="button" (click)="insertarMonedas()">Inserción de monedas</button>
+    <button type="button" (click)="listarProductos()">Ver listado de productos-cantidad</button>
+    <button type="button" (click)="listarMonedas()">Ver listado de monedas-cantidad</button>
+    <button id="btnGanancias" type="button" (click)="getGanancias()">Ver ganancias</button>
+
   </div>
 
   <div id="inputs">
 
     <label>Cantidad</label>
+
     <input [(ngModel)]="cantidadInsertar" id="inputCantidad" type="number" />
 
     <label>Posicion/Valor</label>
+
     <select id="inputPosicion" [(ngModel)]="posicionAgregar">
-      <option selected>selecciona un producto</option>
+
+      <option value="">selecciona un producto</option>
       <option *ngFor="let producto of productos">{{producto.posicion}}</option>
+
     </select>
 
     <select id="inputValor" [(ngModel)]="valorAgregar">
-      <option selected>selecciona una moneda</option>
+
+      <option value="0">selecciona una moneda</option>
       <option *ngFor="let moneda of listaMonedas">{{moneda.valor}}</option>
+
     </select>
+
     <button id="confirmar" type="button" (click)="confirmarInsertar()">Confirmar</button>
+
   </div>
+
+  <div id="listaProductos">
+
+    <table>
+
+      <tr>
+
+        <th>nombre</th>
+        <th>cantidad</th>
+
+      </tr>
+
+      <tr *ngFor="let producto of productos">
+
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.cantidad}}</td>
+
+      </tr>
+
+    </table>
+
+  </div>
+
+  <div id="listaMonedas">
+
+    <table>
+
+      <tr>
+
+        <th>Valor</th>
+        <th>Cantidad</th>
+
+      </tr>
+
+      <tr *ngFor="let moneda of listaMonedas">
+
+        <td>{{moneda.valor}}</td>
+        <td>{{moneda.cantidad}}</td>
+
+      </tr>
+
+    </table>
+
+  </div>
+
+  <div id="divGanancias" *ngIf="mostrarGanancias==true">
+
+    {{this.ganancias|number}}€
+
+  </div>
+
 </div>
-<div id="myModal" class="modal" style="display: none;">
+<div id="cambios" *ngIf="mostrarCambio==true">
+  <span>Cambio: </span>
+  <div class="cambio" *ngFor="let moneda of cambios">
+    <div class="contenedorFotoCambio"><img draggable="false" class="foto" src="../assets/img/monedas/{{moneda.foto}}"
+        title="{{moneda.valor}}" /></div>
+  </div>
+  <!-- <button (click)="retirarCambio()">Retirar Cambio</button> -->
+</div>
+
+<div id="modalMonedas" class="modal" style="display: none;">
   <app-monedas (newItemEvent)="addItem($event)" (monedasInsertadas)="addItem2($event)"
     (listarMonedas)="addItem3($event)" [reiniciarCompra]="reiniciarCompra"
     [reiniciarListado]="reiniciarListado"></app-monedas>

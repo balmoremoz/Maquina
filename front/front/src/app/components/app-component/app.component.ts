@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductoEntity } from '../../models/producto.model';
 import { productoService } from '../../services/producto.service';
 import { MonedaEntity } from 'src/app/models/moneda.model';
@@ -30,10 +30,10 @@ export class AppComponent implements OnInit {
   reiniciarListado: boolean = false;
   ventas: VentaEntity[] = [];
   ganancias: number;
-  mostrar: boolean = false;
+  mostrarGanancias: boolean = false;
+  mostrarCambio: boolean = false;
 
   constructor(private productoService: productoService, private ventaService: VentaService) {
-
   }
 
   ngOnInit() {
@@ -51,39 +51,32 @@ export class AppComponent implements OnInit {
       });
   }
 
-  public anadirVenta(idProducto: number, dinero: number): void {
+  anadirVenta(idProducto: number, dinero: number): void {
     this.ventaService.anadirVenta(idProducto, dinero).subscribe((response) => {
 
     });
   }
 
-  public getVentas(): void {
-    this.ventaService.getVentas().subscribe(
-      (response) => {
-        this.ventas = response;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      });
+  getVentas(): void {
+    this.ventaService.getVentas().subscribe((response) => { this.ventas = response });
 
   }
 
-
-  addItem(newItem: Number) {
+  addItem(newItem: Number): void {
     this.saldo = (newItem) as number;
   }
 
-  addItem2(newItem: MonedaEntity[]) {
+  addItem2(newItem: MonedaEntity[]): void {
     this.monedasInsertadas = (newItem) as MonedaEntity[];
   }
 
-  addItem3(newItem: MonedaEntity[]) {
+  addItem3(newItem: MonedaEntity[]): void {
     this.listaMonedas = (newItem) as MonedaEntity[];
   }
 
-  public modal() {
-    var modal = document.getElementById("myModal");
-    var span = document.getElementById("close");
+  modal(): void {
+    var modal = document.getElementById("modalMonedas");
+    var span = document.getElementById("cerrarModal");
 
     modal.style.display = "block";
     span.onclick = function () {
@@ -96,34 +89,21 @@ export class AppComponent implements OnInit {
     }
   }
 
-  escribir(event) {
+  escribir(event): void {
+
     if (this.admin == false) {
-      document.getElementById("cambio").style.setProperty("display", "none");
-
       this.productoId += event.target.innerHTML;
-      document.getElementById("mostrarProducto").innerHTML += this.productoId;
-
-      if ((((this.productoId.length >= 1) && (Number.isInteger(Number(this.productoId.charAt(0))) == false))) && (((this.productoId.length >= 1) &&
-        (Number.isInteger(Number(this.productoId.charAt(1))) == true)))) {
-
-
-        document.getElementById("mostrarProducto").innerHTML = this.productoId;
-
-      } else {
-        this.productoId = "";
-        document.getElementById("mostrarProducto").innerHTML = "";
-      }
-
+      document.getElementById("mostrarProducto").innerHTML = "Producto: " + this.productoId;
     }
   }
 
-  borrar() {
-    document.getElementById("mostrarProducto").innerHTML = "Producto:";
-    this.productoId = "";
+  borrar(): void {
+    this.productoId = this.productoId.substring(0, this.productoId.length - 1);;
+    document.getElementById("mostrarProducto").innerHTML = "Producto: " + this.productoId;
     this.cambio = 0;
   }
 
-  compra() {
+  compra(): void {
     if (this.productoId.length > 2) {
       this.isAdmin();
       return;
@@ -170,24 +150,28 @@ export class AppComponent implements OnInit {
         this.reiniciarListado = true;
         this.anadirVenta(this.productoSeleccionado[0].id, this.productoSeleccionado[0].precioVenta);
         this.getVentas();
+        this.mostrarGanancias = false;
+        this.mostrarCambio = true;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     )
     this.getProductos();
-    this.borrar();
     document.getElementById("mostrarCambio").style.setProperty("display", "block");
     this.reiniciarCompra = false;
     this.reiniciarListado = false;
+    this.productoId = "";
   }
+
   isAdmin() {
     if (this.productoId == "D2315A") {
-      document.getElementById("adminControl").style.setProperty("visibility", "visible");
+      document.getElementById("adminBotones").style.setProperty("visibility", "visible");
+      this.productoId = "";
+      document.getElementById("mostrarProducto").innerHTML = "";
     } else {
       return;
     }
-    this.borrar();
   }
 
   contarMonedas(listaMonedasInsertadas): String[] {
@@ -200,49 +184,62 @@ export class AppComponent implements OnInit {
     return valorMonedas;
   }
 
-  contarCambio(cambios: MonedaEntity[]) {
+  contarCambio(cambios: MonedaEntity[]): void {
     cambios.forEach(moneda => {
       this.cambio = this.cambio + moneda.valor;
     })
   }
 
-  insertarProductos() {
+  insertarProductos(): void {
+    this.ocultarTodo();
     document.getElementById("inputs").style.setProperty("display", "block");
     document.getElementById("inputPosicion").style.setProperty("display", "block");
     document.getElementById("inputCantidad").style.setProperty("visibility", "visible");
-    document.getElementById("inputValor").style.setProperty("display", "none");
   }
 
-  insertarMonedas() {
+  insertarMonedas(): void {
+    this.ocultarTodo();
     document.getElementById("inputs").style.setProperty("display", "block");
     document.getElementById("inputValor").style.setProperty("display", "block");
     document.getElementById("inputCantidad").style.setProperty("visibility", "visible");
-    document.getElementById("inputPosicion").style.setProperty("display", "none");
-
   }
 
-  listarProductos() {
+  listarProductos(): void {
+    this.ocultarTodo();
     document.getElementById("listaProductos").style.setProperty("display", "block");
   }
 
-  listarMonedas() {
+  listarMonedas(): void {
+    this.ocultarTodo();
     document.getElementById("listaMonedas").style.setProperty("display", "block");
   }
 
-  getGanancias(ventas: VentaEntity[]) {
-    this.getVentas();
+  getGanancias(): void {
+    this.getVentas()
     let dineroVenta: number = 0;
     let dineroCompra: number = 0;
 
-    ventas.forEach((venta) => {
+    this.ventas.forEach((venta) => {
       dineroVenta += venta.dineroIngresado;
       dineroCompra += venta.producto.precioCompra;
     });
     this.ganancias = dineroVenta - dineroCompra;
-    this.mostrar = true;
+
+    this.ocultarTodo();
+    this.mostrarGanancias = true;
   }
 
-  confirmarInsertar() {
+  ocultarTodo() {
+    document.getElementById("inputs").style.setProperty("display", "none");
+    document.getElementById("inputValor").style.setProperty("display", "none");
+    document.getElementById("inputCantidad").style.setProperty("visibility", "hidden");
+    document.getElementById("inputPosicion").style.setProperty("display", "none");
+    document.getElementById("listaProductos").style.setProperty("display", "none");
+    document.getElementById("listaMonedas").style.setProperty("display", "none");
+    this.mostrarGanancias = false;
+  }
+
+  confirmarInsertar(): void {
     if (this.cantidadInsertar <= 0) {
       alert("Error: Introduce un valor mayor que 0");
       return;
@@ -259,7 +256,7 @@ export class AppComponent implements OnInit {
       },
         (error: HttpErrorResponse) => {
           alert(error.message);
-        })
+        });
       this.posicionAgregar = "";
     }
 

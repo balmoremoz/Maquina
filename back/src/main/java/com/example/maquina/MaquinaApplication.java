@@ -1,9 +1,7 @@
 package com.example.maquina;
-
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

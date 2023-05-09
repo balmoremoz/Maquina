@@ -20,51 +20,36 @@
   height: 100%;
 }
 
-#div2 {
+#divInsertarMonedas {
   margin-left: 5px;
   width: 35%;
   height: auto;
   padding-top: 10px;
   padding-bottom: 40px;
   border: 1px solid black;
-
 }
 
-
-#div2>img {
+#divInsertarMonedas>img {
   object-fit: scale-down;
   width: 40px;
   position: relative;
   float: left;
   margin-right: 10px;
-
 }
 
 .modal {
   display: none;
-  /* Hidden by default */
   position: fixed;
-  /* Stay in place */
   z-index: 1;
-  /* Sit on top */
   padding-top: 100px;
-  /* Location of the box */
-  left: 0;
-  top: 0;
   width: 100%;
-  /* Full width */
   height: 100%;
-  /* Full height */
   overflow: auto;
-  /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
-  /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4);
-  /* Black w/ opacity */
 }
 
-/* Modal Content */
-.modal-content {
+.modalMoneda {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -73,30 +58,24 @@
   height: 50%;
 }
 
-.modal-content h2 {
+.modalMoneda h2 {
   text-align: center;
 }
 
-/* The Close Button */
-#close {
+#cerrarModal {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-#myBtn {
+#botonModal {
   grid-column: 1/6;
   grid-row: 1/2;
 }
 
-#cambio {
-  grid-column: 1/6;
-  grid-row: 2/2;
-}
-
-#close:hover,
-#close:focus {
+#cerrarModal:hover,
+#cerrarModal:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;

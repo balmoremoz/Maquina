@@ -1,8 +1,8 @@
-<div class="modal-content">
-    <span id="close">&times;</span>
+<div class="modalMoneda">
+    <span id="cerrarModal">&times;</span>
     <h2>INSERTE MODEDAS</h2>
     <div id="monedas">
-        <div id="div2" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
+        <div id="divInsertarMonedas" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
         <br>
 
         <div class="moneda" *ngFor="let moneda of monedas">
