@@ -75,8 +75,8 @@ export class AppComponent implements OnInit {
   }
 
   modal(): void {
-    var modal = document.getElementById("modalMonedas");
-    var span = document.getElementById("cerrarModal");
+    let modal = document.getElementById("modalMonedas");
+    let span = document.getElementById("cerrarModal");
 
     modal.style.display = "block";
     span.onclick = function () {
