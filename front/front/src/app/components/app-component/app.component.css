@@ -8,9 +8,10 @@
 }
 
 .producto {
-  padding: 10%;
+  padding: 15%;
+  font-size: 12px;
   /* border-style: solid; */
-  margin: 1%;
+  margin: 3%;
 }
 
 .contenedorFoto {
@@ -51,9 +52,12 @@
 
 #botoneraFunciones {
   display: grid;
-  margin-left: 25%;
+  margin: auto;
   width: 50%;
   grid-template-columns: repeat(3, 1fr);
+}
+#botoneraFunciones button{
+margin: 1%;
 }
 
 #borrarBtn {
@@ -187,6 +191,10 @@
   width: 100%;
   display: none;
   object-fit: scale-down;
+}
+
+#inputs * {
+  margin-bottom: 4%;
 }
 
 #inputCantidad {
