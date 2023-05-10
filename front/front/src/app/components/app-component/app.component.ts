@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   ganancias: number;
   mostrarGanancias: boolean = false;
   mostrarCambio: boolean = false;
+  botones: string[] = ["1", "2", "3", "4", "5", "A", "B", "C", "D", "E"];
 
   constructor(private productoService: productoService, private ventaService: VentaService) {
   }
@@ -90,9 +91,9 @@ export class AppComponent implements OnInit {
   }
 
   escribir(event): void {
-
     if (this.admin == false) {
       this.productoId += event.target.innerHTML;
+      console.log(this.productoId);
       document.getElementById("mostrarProducto").innerHTML = "Producto: " + this.productoId;
     }
   }
@@ -101,6 +102,11 @@ export class AppComponent implements OnInit {
     this.productoId = this.productoId.substring(0, this.productoId.length - 1);;
     document.getElementById("mostrarProducto").innerHTML = "Producto: " + this.productoId;
     this.cambio = 0;
+  }
+
+  borrarTodo(): void {
+    this.productoId = "";
+    document.getElementById("mostrarProducto").innerHTML = "Producto: ";
   }
 
   compra(): void {
@@ -152,23 +158,23 @@ export class AppComponent implements OnInit {
         this.getVentas();
         this.mostrarGanancias = false;
         this.mostrarCambio = true;
+        this.productoId = "";
+        document.getElementById("mostrarProducto").innerHTML = "Producto: ";
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     )
     this.getProductos();
-    document.getElementById("mostrarCambio").style.setProperty("display", "block");
     this.reiniciarCompra = false;
     this.reiniciarListado = false;
-    this.productoId = "";
   }
 
   isAdmin() {
     if (this.productoId == "D2315A") {
       document.getElementById("adminBotones").style.setProperty("visibility", "visible");
       this.productoId = "";
-      document.getElementById("mostrarProducto").innerHTML = "";
+      document.getElementById("mostrarProducto").innerHTML = "Producto: ";
     } else {
       return;
     }

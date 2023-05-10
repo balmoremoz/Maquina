@@ -1,40 +1,33 @@
 <router-outlet></router-outlet>
 <div id="productos">
 
-  <div class="producto" *ngFor="let producto of productos">
+  <div class="producto" class="card" *ngFor="let producto of productos">
     <div class="contenedorFoto"><img draggable="false" class="foto" src="../assets/img/{{producto.foto}}"
         title="{{producto.nombre}}" />
     </div>
     <div id="info">
+
+      <label clas="card-title">{{producto.nombre}}</label>
       <label>{{producto.precioVenta}}€ </label>
       <label>Posicion:{{producto.posicion}}</label>
-      <label>{{producto.nombre}}</label>
+
     </div>
   </div>
 </div>
 
-<div id="mostrarCambio"><span>Cambio:</span></div>
-
 <div id="botonera">
 
-  <button class="boton" (click)="escribir($event)" type="button">1</button>
-  <button class="boton" (click)="escribir($event)" type="button">2</button>
-  <button class="boton" (click)="escribir($event)" type="button">3</button>
-  <button class="boton" (click)="escribir($event)" type="button">4</button>
-  <button class="boton" (click)="escribir($event)" type="button">5</button>
-  <button class="boton" (click)="escribir($event)" type="button">A</button>
-  <button class="boton" (click)="escribir($event)" type="button">B</button>
-  <button class="boton" (click)="escribir($event)" type="button">C</button>
-  <button class="boton" (click)="escribir($event)" type="button">D</button>
-  <button class="boton" (click)="escribir($event)" type="button">E</button>
+  <button *ngFor="let string of botones" class="btn btn-dark rounded-1" (click)="escribir($event)" type="button"
+    style="margin:1%">{{string}}</button>
 
 </div>
 
 <div id="botoneraFunciones">
 
-  <button id="botonModal" type="button" (click)="modal()">Insertar monedas</button>
-  <button id="aceptarBtn" type="button" (click)="compra()">Aceptar</button>
-  <button id="borrarBtn" type="button" (click)="borrar()">Borrar</button>
+  <button id="botonModal" class="btn btn-outline-secondary" type="button" (click)="modal()">Insertar monedas</button>
+  <button id="aceptarBtn" class="btn btn-outline-secondary" type="button" (click)="compra()">Aceptar</button>
+  <button id="borrarBtn" class="btn btn-outline-secondary" type="button" (click)="borrar()">Borrar</button>
+  <button id="borrarTodoBtn" class="btn btn-outline-secondary" type="button" (click)="borrarTodo()">Borrar todo</button>
 
 </div>
 
@@ -45,11 +38,14 @@
 
   <div id="adminBotones">
 
-    <button type="button" (click)="insertarProductos()">Inserción de productos</button>
-    <button type="button" (click)="insertarMonedas()">Inserción de monedas</button>
-    <button type="button" (click)="listarProductos()">Ver listado de productos-cantidad</button>
-    <button type="button" (click)="listarMonedas()">Ver listado de monedas-cantidad</button>
-    <button id="btnGanancias" type="button" (click)="getGanancias()">Ver ganancias</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="insertarProductos()">Inserción de
+      productos</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="insertarMonedas()">Inserción de monedas</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="listarProductos()">Ver listado de
+      productos-cantidad</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="listarMonedas()">Ver listado de
+      monedas-cantidad</button>
+    <button id="btnGanancias" class="btn btn-outline-secondary" (click)="getGanancias()">Ver ganancias</button>
 
   </div>
 
