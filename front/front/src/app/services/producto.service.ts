@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ProductoEntity } from '../models/producto.model';
-import { MonedaEntity } from '../models/moneda.model';
+import { Producto } from '../models/producto.model';
+import {Moneda} from '../models/moneda.model';
+import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -12,17 +13,17 @@ export class productoService {
 
   constructor(private http: HttpClient) { }
 
-  public getProductos(): Observable<ProductoEntity[]> {
-    return this.http.get<ProductoEntity[]>(`${this.apiServerUrl}/producto/all`)
+  public getProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.apiServerUrl}/producto/all`)
   }
 
-  public getMonedasyProducto(monedas, productoId: string): Observable<MonedaEntity[]> {
+  public getMonedasyProducto(monedas, productoId: string): Observable<Moneda[]> {
     let httpParams: HttpParams = new HttpParams();
 
     httpParams = httpParams.append('monedas', monedas);
     httpParams = httpParams.set("productoPosicion", productoId);
 
-    return this.http.get<MonedaEntity[]>(`${this.apiServerUrl}/moneda/compra`, {
+    return this.http.get<Moneda[]>(`${this.apiServerUrl}/moneda/compra`, {
 
       observe: 'body',
       params: httpParams,
@@ -50,12 +51,15 @@ export class productoService {
 
     return this.http.get<string>(`${this.apiServerUrl}/moneda/anadir`, {
       observe: 'body',
-      params: httpParams,    
+      params: httpParams,
     });
   }
-  public getProductoByPosicion(posicion:string): Observable<ProductoEntity> {
-    return this.http.get<ProductoEntity>(`${this.apiServerUrl}/producto/find/${posicion}`)
+  public getProductoByPosicion(posicion: string): Observable<Producto> {
+    return this.http.get<Producto>(`${this.apiServerUrl}/producto/find/${posicion}`)
   }
 
+  public nuevoProducto(producto:Producto): Observable<Producto> {
+    return this.http.post<Producto>(`${this.apiServerUrl}/producto/nuevo`, producto);
+  }
 
 }
