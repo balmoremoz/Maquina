@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.example.maquina.dto.MonedaDto;
@@ -41,12 +39,14 @@ public class MonedaProviderImp implements MonedaProvider {
 		return monedasDto;
 	}
 
+	@Override
 	public MonedaDto findMonedaByValor(Double id) {
 		MonedaEntity moneda = monedaRepository.findMonedaByValor(id);
 		MonedaDto monedaDto = modelMapper.map(moneda, MonedaDto.class);
 		return monedaDto;
 	}
 
+	@Override
 	public List<MonedaDto> getCambio(List<String> monedas, String posicion) {
 		ProductoEntity producto = productoProvider.findProductoByPosicion(posicion);
 		Double cambio = 0.0, cantidad = 0.0;
@@ -82,12 +82,14 @@ public class MonedaProviderImp implements MonedaProvider {
 		monedaRepository.saveAll(monedasBD);
 		return monedasCambio;
 	}
-	
+
+	@Override
 	public void anadirMoneda(double valor, Integer cantidad) {
-		MonedaEntity moneda=monedaRepository.findMonedaByValor(valor);
-		
-		moneda.setCantidad(moneda.getCantidad()+cantidad);
+		MonedaEntity moneda = monedaRepository.findMonedaByValor(valor);
+
+		moneda.setCantidad(moneda.getCantidad() + cantidad);
 		monedaRepository.save(moneda);
 	}
+	
 
 }

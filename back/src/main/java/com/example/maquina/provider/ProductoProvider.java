@@ -11,7 +11,9 @@ public interface ProductoProvider {
 	 
 	 ProductoEntity findProductoByPosicion(String posicion);
 	 
-	 void anadirProducto(String posicion, Integer cantidad);
+	 void anadirProducto(String nombre, Integer cantidad);
 	 
 	 ProductoEntity findProductoById(Long id);
+	 
+	 void nuevoProducto(ProductoEntity producto);
 }

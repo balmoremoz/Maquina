@@ -6,4 +6,6 @@ import com.example.maquina.entity.ProductoEntity;
 
 public interface ProductoRepository extends JpaRepository<ProductoEntity, Long> {
 	 ProductoEntity findProductoByPosicion(String posicion); 
+	 
+	 ProductoEntity findProductoByNombre(String nombre);
 }

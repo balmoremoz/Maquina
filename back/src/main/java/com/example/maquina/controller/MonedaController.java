@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.maquina.dto.MonedaDto;
-import com.example.maquina.provider.impl.MonedaProviderImp;
+import com.example.maquina.provider.MonedaProvider;
 
 @RestController
 @RequestMapping("/moneda")
 public class MonedaController {
 
 	@Autowired
-
-	MonedaProviderImp monedaProvider;
+	MonedaProvider monedaProvider;
 
 	@GetMapping("/all")
 	public ResponseEntity<List<MonedaDto>> getAllMonedasDto() {
