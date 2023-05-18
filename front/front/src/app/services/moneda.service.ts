@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MonedaEntity } from '../models/moneda.model';
+import { Moneda } from '../models/moneda.model';
 
 
 @Injectable({
@@ -12,8 +12,8 @@ export class MonedaService {
 
   constructor(private http: HttpClient) { }
 
-  public getMonedas(): Observable<MonedaEntity[]> {
-    return this.http.get<MonedaEntity[]>(`${this.apiServerUrl}/all`)
+  public getMonedas(): Observable<Moneda[]> {
+    return this.http.get<Moneda[]>(`${this.apiServerUrl}/all`)
   }
 
 }

@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { VentaEntity } from '../models/venta.model';
-import { MonedaEntity } from '../models/moneda.model';
+import { Venta } from '../models/venta.model';
+import {Moneda} from '../models/moneda.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +27,41 @@ export class VentaService {
 
     });
   }
-  public getVentas(): Observable<VentaEntity[]> {
-    return this.http.get<VentaEntity[]>(`http://localhost:8080/maquina/venta/all`)
+  public getVentas(): Observable<Venta[]> {
+    return this.http.get<Venta[]>(`http://localhost:8080/maquina/venta/all`)
   }
 
+  filtrarGanancias(fechaInicio:string, fechaFin:string):  Observable<any> {
+
+    let httpParams: HttpParams = new HttpParams();
+
+    httpParams = httpParams.append('fechaInicio', fechaInicio);
+
+    httpParams = httpParams.set("fechaFin", fechaFin);
+
+    return this.http.get<any>(`http://localhost:8080/maquina/venta/filtrarGanancias`, {
+
+      observe: 'body',
+
+      params: httpParams
+
+    });
+  }
+  filtrarVentas(fechaInicio:string, fechaFin:string):  Observable<any> {
+
+    let httpParams: HttpParams = new HttpParams();
+
+    httpParams = httpParams.append('fechaInicio', fechaInicio);
+
+    httpParams = httpParams.set("fechaFin", fechaFin);
+
+    return this.http.get<any>(`http://localhost:8080/maquina/venta/filtrarVentas`, {
+
+      observe: 'body',
+
+      params: httpParams
+
+    });
+  }
 
 }

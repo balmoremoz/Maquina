@@ -7,7 +7,7 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Slf4j
+
 @Configuration
 public class DataSourceConfig {
 	@Value("${spring.datasource.driverClassName}")
@@ -26,13 +26,11 @@ public class DataSourceConfig {
 	public DataSource dataSource() {
 		DataSource datasource = null;
 		try {
-//			log.info(userConnection);
-//			log.info(driverName);
+
 			datasource = DataSourceBuilder.create().username(userConnection).password(passConnection).url(urlDatasource)
 					.driverClassName(driverName).build();
 		} catch (Exception e) {
-//			log.error(e.getMessage());
-//			log.error("ERROR: no se encuentra el DATASOURCE de desarrollo: " + urlDatasource + ". ERROR: " + e, e);
+
 		}
 		return datasource;
 	}

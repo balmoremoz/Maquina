@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { MonedaEntity } from '../../models/moneda.model';
+import { Moneda } from '../../models/moneda.model';
 import { MonedaService } from '../../services/moneda.service';
 import { Input } from '@angular/core';
 @Component({
@@ -8,16 +8,16 @@ import { Input } from '@angular/core';
   templateUrl: './monedas.component.html',
   styleUrls: ['./monedas.component.css']
 })
-export class MonedasComponent implements OnChanges {
+export class MonedasComponent implements OnChanges  {
 
-  public monedas: MonedaEntity[] = [];
+  public monedas: Moneda[] = [];
   public valor: number;
   public saldo: number = 0;
-  public arrayMonedasInsertadas: MonedaEntity[] = [];
-  public listadoMonedas: MonedaEntity[];
+  public arrayMonedasInsertadas: Moneda[] = [];
+  public listadoMonedas: Moneda[];
   @Output() newItemEvent = new EventEmitter<Number>();
-  @Output() monedasInsertadas = new EventEmitter<MonedaEntity[]>();
-  @Output() listarMonedas = new EventEmitter<MonedaEntity[]>();
+  @Output() monedasInsertadas = new EventEmitter<Moneda[]>();
+  @Output() listarMonedas = new EventEmitter<Moneda[]>();
   @Input() reiniciarCompra: boolean;
   @Input() reiniciarListado: boolean;
 
@@ -28,6 +28,7 @@ export class MonedasComponent implements OnChanges {
     this.addNewItem();
   }
 
+  
   ngOnChanges(changes: SimpleChanges) {
 
     if (changes.reiniciarCompra) {
