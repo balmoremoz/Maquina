@@ -1,24 +1,27 @@
 #productos {
   margin: auto;
-  width: 75%;
-  height: 600px;
+  width: 90%;
   display: grid;
   grid-template-columns: repeat(5, 20%);
-  grid-template-rows: repeat(5, 20%);
+  margin-bottom: 2%;
 }
 
-.producto {
-  padding: 15%;
-  font-size: 12px;
-  /* border-style: solid; */
-  margin: 3%;
+.card {
+  padding: 2%;
+  margin: 4%;
+  height: 250px;
+}
+
+.card:hover {
+  border-color: #000;
 }
 
 .contenedorFoto {
   margin: auto;
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 50%;
 }
+
 
 .foto {
   object-fit: scale-down;
@@ -27,7 +30,9 @@
 }
 
 #info {
+
   width: 100%;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -37,6 +42,7 @@
 }
 
 #botonera {
+  position: relative;
   margin: auto;
   width: 50%;
   display: grid;
@@ -52,16 +58,29 @@
 
 #botoneraFunciones {
   display: grid;
-  margin: auto;
+  margin-left: 25%;
   width: 50%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
+  text-rendering: geometricPrecision;
 }
-#botoneraFunciones button{
-margin: 1%;
+
+#botoneraFunciones button {
+  margin: 1%;
 }
 
 #borrarBtn {
   grid-column: 3;
+}
+
+.boton {
+  margin: 2%;
+}
+
+.boton:hover {
+  letter-spacing: 0.3rem;
+  color: #000;
+  /* box-shadow: 0 0 35px var(--clr);  */
+  animation: box 3s infinite;
 }
 
 #aceptarBtn {
@@ -162,10 +181,17 @@ margin: 1%;
   grid-column: 1;
   width: 100%;
   visibility: hidden;
+  margin-bottom: 250%;
 }
 
 #adminBotones button {
-  margin-top: 0.5%;
+  margin-top: 1%;
+}
+
+#botonesInsertarProducto {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 #listaProductos {
@@ -180,6 +206,11 @@ margin: 1%;
 
 #divGanancias {
   grid-column: 2;
+
+}
+
+#divGanancias *{
+  margin-bottom:2%;
 }
 
 #adminBotones button {
@@ -194,11 +225,11 @@ margin: 1%;
 }
 
 #inputs * {
-  margin-bottom: 4%;
+  margin: 2%;
 }
 
 #inputCantidad {
-  width: 95%;
+  width: 100%;
 }
 
 #inputPosicion {
@@ -211,4 +242,21 @@ margin: 1%;
 
 #listaMonedas {
   display: none;
+}
+
+#formNuevoProducto {
+  display: none;
+}
+
+#formNuevoProducto * {
+  margin: 1%;
+}
+
+#tablaVentas {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+  padding: 1%;
+  border-style: solid;
+  border-width: 1px;
 }

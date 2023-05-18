@@ -1,39 +1,34 @@
 <div id="productos">
 
-  <div class="producto" *ngFor="let producto of productos">
+  <div class="producto" class="card" *ngFor="let producto of productos">
     <div class="contenedorFoto"><img draggable="false" class="foto" src="../assets/img/{{producto.foto}}"
         title="{{producto.nombre}}" />
     </div>
     <div id="info">
+
+      <label clas="card-title">{{producto.nombre}}</label>
       <label>{{producto.precioVenta}}€ </label>
       <label>Posicion:{{producto.posicion}}</label>
-      <label>{{producto.nombre}}</label>
+
     </div>
   </div>
 </div>
 
-<div id="mostrarCambio"><span>Cambio:</span></div>
-
 <div id="botonera">
 
-  <button class="boton" (click)="escribir($event)" type="button">1</button>
-  <button class="boton" (click)="escribir($event)" type="button">2</button>
-  <button class="boton" (click)="escribir($event)" type="button">3</button>
-  <button class="boton" (click)="escribir($event)" type="button">4</button>
-  <button class="boton" (click)="escribir($event)" type="button">5</button>
-  <button class="boton" (click)="escribir($event)" type="button">A</button>
-  <button class="boton" (click)="escribir($event)" type="button">B</button>
-  <button class="boton" (click)="escribir($event)" type="button">C</button>
-  <button class="boton" (click)="escribir($event)" type="button">D</button>
-  <button class="boton" (click)="escribir($event)" type="button">E</button>
+  <button *ngFor="let string of botones" class="btn btn-dark rounded-1" (click)="escribirProducto($event)" type="button"
+    style="margin:1%">{{string}}</button>
 
 </div>
 
 <div id="botoneraFunciones">
 
-  <button id="botonModal" type="button" (click)="modal()">Insertar monedas</button>
-  <button id="aceptarBtn" type="button" (click)="compra()">Aceptar</button>
-  <button id="borrarBtn" type="button" (click)="borrar()">Borrar</button>
+  <button id="botonModal" class="btn btn-outline-dark rounded-1" type="button" (click)="modal()">Insertar
+    monedas</button>
+  <button id="aceptarBtn" class="btn btn-outline-dark rounded-1" type="button" (click)="compra()">Aceptar</button>
+  <button id="borrarBtn" class="btn btn-outline-dark rounded-1" type="button" (click)="borrar()">Borrar</button>
+  <button id="borrarTodoBtn" class="btn btn-outline-dark rounded-1" type="button" (click)="borrarTodo()">Borrar
+    todo</button>
 
 </div>
 
@@ -44,11 +39,15 @@
 
   <div id="adminBotones">
 
-    <button type="button" (click)="insertarProductos()">Inserción de productos</button>
-    <button type="button" (click)="insertarMonedas()">Inserción de monedas</button>
-    <button type="button" (click)="listarProductos()">Ver listado de productos-cantidad</button>
-    <button type="button" (click)="listarMonedas()">Ver listado de monedas-cantidad</button>
-    <button id="btnGanancias" type="button" (click)="getGanancias()">Ver ganancias</button>
+    <button type="button" class="btn btn-outline-dark rounded-1" (click)="insertarProductos()">Inserción de
+      productos</button>
+    <button type="button" class="btn btn-outline-dark rounded-1" (click)="insertarMonedas()">Inserción de
+      monedas</button>
+    <button type="button" class="btn btn-outline-dark rounded-1" (click)="listarProductos()">Ver listado de
+      productos-cantidad</button>
+    <button type="button" class="btn btn-outline-dark rounded-1" (click)="listarMonedas()">Ver listado de
+      monedas-cantidad</button>
+    <button id="btnGanancias" class="btn btn-outline-dark rounded-1" (click)="verGanancias()">Ver ganancias</button>
 
   </div>
 
@@ -56,27 +55,65 @@
 
     <label>Cantidad</label>
 
-    <input [(ngModel)]="cantidadInsertar" id="inputCantidad" type="number" />
+    <input id="inputCantidad" class="form-control" type="number" [(ngModel)]="cantidadInsertar" />
 
     <label>Posicion/Valor</label>
 
-    <select id="inputPosicion" [(ngModel)]="posicionAgregar">
+    <select id="inputPosicion" class="form-control" [(ngModel)]="nombreAgregar">
 
       <option value="">selecciona un producto</option>
-      <option *ngFor="let producto of productos">{{producto.posicion}}</option>
+      <option *ngFor="let producto of productos">{{producto.nombre}}</option>
 
     </select>
 
-    <select id="inputValor" [(ngModel)]="valorAgregar">
+    <select id="inputValor" class="form-control" [(ngModel)]="valorAgregar">
 
       <option value="0">selecciona una moneda</option>
       <option *ngFor="let moneda of listaMonedas">{{moneda.valor}}</option>
 
     </select>
-
-    <button id="confirmar" type="button" (click)="confirmarInsertar()">Confirmar</button>
-
+    <div id="botonesInsertarProducto">
+      <button id="nuevoProductoBtn" class="btn btn-outline-dark rounded-1" (click)="mostrarFormulario()">Nuevo</button>
+      <button id="confirmar" class="btn btn-outline-dark rounded-1" type="button"
+        (click)="confirmarInsertar()">Confirmar</button>
+    </div>
   </div>
+
+  <form id="formNuevoProducto" #addForm="ngForm" (submit)="nuevoProducto(addForm)">
+    <div class="form-group">
+      <label>ID</label>
+      <input type="number" class="form-control" ngModel name="id">
+    </div>
+    <div class="form-group">
+      <label>Nombre</label>
+      <input class="form-control" ngModel name="nombre" type="text">
+    </div>
+    <div class="form-group">
+      <label>Precio Compra</label>
+      <input class="form-control" ngModel name="precioCompra" type="number">
+    </div>
+    <div class="form-group">
+      <label>Precio Venta</label>
+      <input class="form-control" ngModel name="precioVenta" type="number">
+    </div>
+    <div class="form-group">
+      <label>Posición</label>
+      <input class="form-control" ngModel name="posicion" type="text">
+    </div>
+    <div class="form-group">
+      <label>Peso</label>
+      <input class="form-control" ngModel name="peso" type="number">
+    </div>
+    <div class="form-group">
+      <label>Cantidad</label>
+      <input class="form-control" ngModel name="cantidad" type="number">
+    </div>
+    <div class="form-group">
+      <label>Foto</label>
+      <input class="form-control" ngModel name="foto" type="text">
+    </div>
+    <button type="submit" class="btn btn-primary">Aceptar</button>
+  </form>
 
   <div id="listaProductos">
 
@@ -124,8 +161,40 @@
 
   <div id="divGanancias" *ngIf="mostrarGanancias==true">
 
-    {{this.ganancias|number}}€
+    <form id="formGanancias">
+      <div class="form-group">
+        <label>Fecha Inicio:</label>
+        <input class="form-control" [(ngModel)]="fechaInicio" name="fechaInicio" type="date">
+      </div>
+      <div class="form-group">
+        <label>Fecha Fin:</label>
+        <input class="form-control" [(ngModel)]="fechaFin" name="fechaFin" type="date">
+      </div>
 
+      <button class="btn btn-outline-dark rounded-1" type="submit" (click)="getVentasByFecha()">Aceptar</button>
+
+      <table id="tablaVentas">
+        <tr>
+
+          <th>Id</th>
+
+          <th>Fecha</th>
+
+          <th>Id Producto</th>
+
+          <th>dinero</th>
+
+        </tr>
+        <tr *ngFor="let venta of ventasFiltradas">
+          <td>{{venta.id}}</td> 
+          <td>{{venta.fecha|date}}</td>
+          <td>{{venta.idProducto}}</td>
+          <td>{{venta.dineroIngresado}}</td>
+        </tr>
+      </table>
+
+      <span *ngIf="mostrarGanancias==true">total:{{gananciasFiltradas|number}}</span>
+    </form>
   </div>
 
 </div>
@@ -135,7 +204,7 @@
     <div class="contenedorFotoCambio"><img draggable="false" class="foto" src="../assets/img/monedas/{{moneda.foto}}"
         title="{{moneda.valor}}" /></div>
   </div>
-  <!-- <button (click)="retirarCambio()">Retirar Cambio</button> -->
+
 </div>
 
 <div id="modalMonedas" class="modal" style="display: none;">

@@ -1,15 +1,16 @@
-<div class="modalMoneda">
+<div id="modalMoneda" class="modal-content rounded-2 shadow">
     <span id="cerrarModal">&times;</span>
     <h2>INSERTE MODEDAS</h2>
     <div id="monedas">
         <div id="divInsertarMonedas" (drop)="drop($event)" (dragover)="allowDrop($event)"></div>
         <br>
 
-        <div class="moneda" *ngFor="let moneda of monedas">
-            <div><img id="{{moneda.valor}}" class="foto" draggable="true" (dragstart)="drag($event)"
-                    src="../../../assets/img/monedas/{{moneda.foto}}" /></div>
+        <div class="moneda">
+            <div *ngFor="let moneda of monedas"><img id="{{moneda.valor}}" class="foto" draggable="true"
+                    (dragstart)="drag($event)" src="../../../assets/img/monedas/{{moneda.foto}}" /></div>
         </div>
-        <button id="cambio" type="button" (click)="devolverDinero()">devolver dinero</button>
+        <button id="btnDevolverDinero" class="btn btn-outline-dark rounded-1" (click)="devolverDinero()">devolver
+            dinero</button>
 
     </div>
 
