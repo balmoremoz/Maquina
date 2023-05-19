@@ -34,16 +34,17 @@ export class AppComponent implements OnInit {
   mostrarCambio: boolean = false;
   botones: string[] = ["1", "2", "3", "4", "5", "A", "B", "C", "D", "E"];
   adminPass: string = "123";
+  mostrarDescargar: boolean = false;
 
   fechaInicio: string = "";
-  fechaFin: string = "";;
+  fechaFin: string = "";
 
   gananciasFiltradas: number;
   ventasFiltradas: Venta[] = [];
 
   constructor(private productoService: productoService, private ventaService: VentaService) {
   }
- 
+
   ngOnInit() {
     this.getProductos();
     this.getVentas();
@@ -126,8 +127,8 @@ export class AppComponent implements OnInit {
 
   compra(): void {
     if (this.productoId.length > 2) {
-        this.isAdmin();
-        return;
+      this.isAdmin();
+      return;
     }
 
     this.getProductos();
@@ -139,53 +140,53 @@ export class AppComponent implements OnInit {
     const { productoId, monedasInsertadas, productoSeleccionado } = this;
 
     if (monedasInsertadas.length === 0 && productoId.length === 2) {
-        alert("Error: inserte monedas");
-        return;
+      alert("Error: inserte monedas");
+      return;
     }
 
     if (productoId === "") {
-        alert("Error: selecciona un producto");
-        return;
+      alert("Error: selecciona un producto");
+      return;
     }
 
     if (productoId.length <= 1) {
-        alert("Error: Posicion no válida");
-        return;
+      alert("Error: Posicion no válida");
+      return;
     }
 
     if (productoSeleccionado?.cantidad === 0) {
-        alert("Error: no queda producto");
-        return;
+      alert("Error: no queda producto");
+      return;
     }
 
     if (productoSeleccionado?.precioVenta > saldoMonedas) {
-        alert("Error: faltan monedas");
-        return;
+      alert("Error: faltan monedas");
+      return;
     }
 
     this.productoService.getMonedasyProducto(listamonedasInsertadas, productoId).subscribe(
-        (response) => {
-            this.cambios = response;
-            this.contarCambio(this.cambios);
-            this.reiniciarCompra = true;
-            alert("compra realizada");
-            this.reiniciarListado = true;
-            this.anadirVenta(productoSeleccionado.id, productoSeleccionado.precioVenta);
-            this.getVentas();
-            this.mostrarGanancias = false;
-            this.mostrarCambio = true;
-            this.productoId = "";
-            document.getElementById("mostrarProducto").innerHTML = "Producto: ";
-        },
-        (error: HttpErrorResponse) => {
-            alert(error.message);
-        }
+      (response) => {
+        this.cambios = response;
+        this.contarCambio(this.cambios);
+        this.reiniciarCompra = true;
+        alert("compra realizada");
+        this.reiniciarListado = true;
+        this.anadirVenta(productoSeleccionado.id, productoSeleccionado.precioVenta);
+        this.getVentas();
+        this.mostrarGanancias = false;
+        this.mostrarCambio = true;
+        this.productoId = "";
+        document.getElementById("mostrarProducto").innerHTML = "Producto: ";
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
     );
 
     this.getProductos();
     this.reiniciarCompra = false;
     this.reiniciarListado = false;
-}
+  }
 
   isAdmin() {
     if (this.productoId == this.adminPass) {
@@ -254,6 +255,7 @@ export class AppComponent implements OnInit {
     document.getElementById("nuevoProductoBtn").style.setProperty("display", "none");
     document.getElementById("formNuevoProducto").style.setProperty("display", "none");
     this.mostrarGanancias = false;
+    this.mostrarDescargar = false;
   }
 
   confirmarInsertar(): void {
@@ -320,17 +322,45 @@ export class AppComponent implements OnInit {
   }
 
   public getVentasByFecha(): void {
+
+    if ((this.fechaInicio == "") && (this.fechaFin == "")) {
+      alert("introduce una fecha");
+      return;
+    }
+    this.mostrarDescargar = true;
     this.ventaService.filtrarVentas(this.fechaInicio, this.fechaFin).subscribe(
       (response) => {
         this.getGananciasByFecha();
         this.getVentas();
-        console.log(this.fechaInicio,this.fechaFin);
-        
+        console.log(this.fechaInicio, this.fechaFin);
+        this.fechaFin = "";
+        this.fechaInicio = "";
         this.ventasFiltradas = response;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
+  }
+
+  managePdfFile(response: any, fileName: string): void {
+    let dataType = response.type;
+    let binaryData = [];
+    binaryData.push(response);
+
+    let filePath = window.URL.createObjectURL(new Blob(binaryData, { type: dataType }));
+    let downloadLink = document.createElement('a');
+    downloadLink.href = filePath;
+    downloadLink.setAttribute('download', fileName);
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+  }
+
+  descargarInforme() {
+    let fileName = "reporte.pdf"
+
+    this.ventaService.descargarInforme().subscribe((response) => {
+      this.managePdfFile(response, fileName);
+    })
   }
 }

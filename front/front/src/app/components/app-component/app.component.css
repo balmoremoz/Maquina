@@ -181,7 +181,6 @@
   grid-column: 1;
   width: 100%;
   visibility: hidden;
-  margin-bottom: 250%;
 }
 
 #adminBotones button {
@@ -200,6 +199,7 @@
 }
 
 #listaMonedas {
+  display: none;
   grid-column: 2;
   text-align: center;
 }
@@ -211,6 +211,10 @@
 
 #divGanancias *{
   margin-bottom:2%;
+}
+
+#divGanancias button{
+  margin-right:2%;
 }
 
 #adminBotones button {
@@ -238,10 +242,6 @@
 
 #inputValor {
   width: 100%;
-}
-
-#listaMonedas {
-  display: none;
 }
 
 #formNuevoProducto {

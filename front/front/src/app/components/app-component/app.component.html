@@ -121,15 +121,15 @@
 
       <tr>
 
-        <th>nombre</th>
-        <th>cantidad</th>
+        <th>NOMBRE</th>
+        <th>CANTIDAD</th>
 
       </tr>
 
       <tr *ngFor="let producto of productos">
 
         <td>{{producto.nombre}}</td>
-        <td>{{producto.cantidad}}</td>
+        <td style="text-align: center;">{{producto.cantidad}}</td>
 
       </tr>
 
@@ -143,8 +143,8 @@
 
       <tr>
 
-        <th>Valor</th>
-        <th>Cantidad</th>
+        <th>VALOR</th>
+        <th>CANTIDAD</th>
 
       </tr>
 
@@ -163,26 +163,26 @@
 
     <form id="formGanancias">
       <div class="form-group">
-        <label>Fecha Inicio:</label>
+        <label>Fecha Desde:</label>
         <input class="form-control" [(ngModel)]="fechaInicio" name="fechaInicio" type="date">
       </div>
       <div class="form-group">
-        <label>Fecha Fin:</label>
+        <label>Fecha Hasta:</label>
         <input class="form-control" [(ngModel)]="fechaFin" name="fechaFin" type="date">
       </div>
 
       <button class="btn btn-outline-dark rounded-1" type="submit" (click)="getVentasByFecha()">Aceptar</button>
-
+      <button class="btn btn-primary rounded-1" type="button" *ngIf="mostrarDescargar==true" (click)="descargarInforme()">Descargar Informe</button>
       <table id="tablaVentas">
         <tr>
 
-          <th>Id</th>
+          <th>ID</th>
 
-          <th>Fecha</th>
+          <th>FECHA</th>
 
-          <th>Id Producto</th>
+          <th>ID PRODUCTO</th>
 
-          <th>dinero</th>
+          <th>DINERO</th>
 
         </tr>
         <tr *ngFor="let venta of ventasFiltradas">
@@ -193,7 +193,7 @@
         </tr>
       </table>
 
-      <span *ngIf="mostrarGanancias==true">total:{{gananciasFiltradas|number}}</span>
+      <span *ngIf="mostrarGanancias==true">total:{{gananciasFiltradas|number}}€</span>
     </form>
   </div>
 
