@@ -63,7 +63,7 @@ public class VentaProviderImpl implements VentaProvider {
 
 	@Override
 	public Double filtrarGananciasPorFecha(String fechaInicio, String fechaFin) {
-
+		
 		List<VentaEntity> ventasFiltradas = ventaRepository.findVentasByFechaInicioyFin(fechaInicio, fechaFin);
 
 		List<VentaDto> ventasFiltradasDto = new ArrayList<VentaDto>();
@@ -96,13 +96,13 @@ public class VentaProviderImpl implements VentaProvider {
 
 			ventasFiltradasDto.add(modelMapper.map(venta, VentaDto.class));
 		}
-
+		
 		return ventasFiltradasDto;
 
 	}
 
 	@Override
-	public byte[] generarPdf(String fechaInicio, String fechaFin) throws JRException {
+	public byte[] generarPdf(	String fechaInicio,String fechaFin) throws JRException {
 		try {
 			Map<String, Object> param = new HashMap<String, Object>();
 
@@ -115,7 +115,7 @@ public class VentaProviderImpl implements VentaProvider {
 			
 			JasperPrint jasper = jasperProvider.crearJasperNoFields(param, nombreArchivo);
 			byte[] bytes = jasperProvider.getBytesJasper(jasper);
-			jasperProvider.saveDocToFile(bytes, "C:\\compartido\\ventas.pdf");
+//			jasperProvider.saveDocToFile(bytes, "C:\\compartido\\ventas.pdf");
 			return bytes;
 
 		} catch (Exception e) {		

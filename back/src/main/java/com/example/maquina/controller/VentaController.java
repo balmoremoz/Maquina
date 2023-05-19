@@ -42,26 +42,25 @@ public class VentaController {
 	}
 
 	@GetMapping("/filtrarVentas")
-	public ResponseEntity<List<VentaDto>> filtrarVentas(@RequestParam(required=false) String fechaInicio,
-			@RequestParam("fechaFin") String fechaFin) {
+	public ResponseEntity<List<VentaDto>> filtrarVentas(
+			@RequestParam(value = "fechaInicio", required = false) String fechaInicio,
+			@RequestParam(value = "fechaFin", required = false) String fechaFin) {
+
 		List<VentaDto> ventasFiltradas = ventaProvider.filtrarVentasPorFecha(fechaInicio, fechaFin);
 		return new ResponseEntity<>(ventasFiltradas, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/descargar", produces = MediaType.APPLICATION_PDF_VALUE)
-
-	public ResponseEntity<byte[]> descargarVentas(@RequestParam("fechaInicio") String fechaInicio,
-			@RequestParam("fechaFin") String fechaFin) throws JRException {
+	public ResponseEntity<byte[]> descargarVentas(@RequestParam(value="fechaInicio", required=false) String fechaInicio,
+			@RequestParam(value="fechaFin", required=false) String fechaFin) throws JRException {
+		
 		byte[] ventasFiltradasPdf = ventaProvider.generarPdf(fechaInicio, fechaFin);
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 
 		responseHeaders.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE);
 		responseHeaders.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "ventasFiltradas.pdf");
-		
+
 		return ResponseEntity.ok().headers(responseHeaders).body(ventasFiltradasPdf);
-
-//		return new ResponseEntity<>(ventasFiltradasPdf, HttpStatus.OK);
 	}
-
 }
